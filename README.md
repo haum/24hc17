@@ -9,3 +9,10 @@ embedded24hc17
 This is code for embedded device.
 
 It uses Arduino "IDE" v1.6.11 with esp8266 package (http://arduino.esp8266.com/stable/package_esp8266com_index.json)
+
+increment_token
+---------------
+
+This code allows to increment riddle inside a token.
+It decodes a token, increment riddle number and encode it again.
+It is a little bit hacky though.
