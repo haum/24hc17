@@ -1,5 +1,6 @@
 #include "SerialCommunicator.h"
 #include "EncodedState.h"
+#include "GameManager.h"
 
 #include <ESP8266WiFi.h>
 
@@ -11,6 +12,10 @@ namespace {
 
   SerialCommunicator comm;
   EncodedState state;
+  GameManager::GameInfo info {
+    comm,
+    state,
+  };
 }
 
 void animate() {
@@ -36,13 +41,11 @@ void setup() {
 }
 
 void loop() {
-  char token[22];
-  state.toString(token);
-  comm.write("\n", 1);
-  comm.write(token, sizeof(token));
-  comm.write("\n", 1);
+  if (!GameManager::play(info))
+    return;
 
   comm.write("\nToken: ", 8);
+  char token[22];
   int len = comm.read(token, sizeof(token));
 
   EncodedState newstate;
@@ -52,8 +55,7 @@ void loop() {
     comm.write("\n", 1);
     state = newstate;
     state.print(comm);
-
-    state.riddle() = state.riddle() + 1;
+    GameManager::set(state.riddle());
   } else {
     comm.write("Unknown token\n", 14);
   }
