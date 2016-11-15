@@ -3,9 +3,12 @@
 #include "GameManager.h"
 
 #include <ESP8266WiFi.h>
+#include <FastLED.h>
 
 namespace {
   const constexpr int led = 2;
+  const constexpr int neopixel_datapin = D3;
+  const constexpr int nb_leds = 13;
   const constexpr int wait = 200;
   bool blink = true;
   int divider = 0;
@@ -16,6 +19,8 @@ namespace {
     comm,
     state,
   };
+
+  CRGB leds[nb_leds];
 }
 
 void animate() {
@@ -23,14 +28,17 @@ void animate() {
   if (divider == wait/10) {
     divider = 0;
     blink = !blink;
-    digitalWrite(led, blink);
+    leds[9] = blink ? CRGB::Red : CRGB::Blue;
   } else {
     divider++;
   }
+  FastLED.show();
 }
 
 void setup() {
+  FastLED.addLeds<NEOPIXEL, neopixel_datapin>(leds, nb_leds);
   pinMode(led, OUTPUT);
+  digitalWrite(led, HIGH);
 
   comm.write("24hc17\n", 7);
 
