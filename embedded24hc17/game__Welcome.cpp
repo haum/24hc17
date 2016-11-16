@@ -1,6 +1,7 @@
 #include "game__Welcome.h"
 #include "EncodedState.h"
 
+namespace game {
 namespace Welcome {
   void init_data(void*) {}
   bool play(void*, GameManager::GameInfo & info) {
@@ -18,4 +19,5 @@ namespace Welcome {
 
     return true;
   }
+}
 }

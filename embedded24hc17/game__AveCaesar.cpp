@@ -1,6 +1,7 @@
 #include "game__AveCaesar.h"
 #include "EncodedState.h"
 
+namespace game {
 namespace AveCaesar {
 	void init_data(void * data) {
 		Data * d = static_cast <Data*> (data);
@@ -37,4 +38,5 @@ namespace AveCaesar {
 		}
 		return false;
 	}
+}
 }

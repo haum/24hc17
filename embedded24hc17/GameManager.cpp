@@ -5,23 +5,23 @@
 
 namespace {
   union {
-    Welcome::Data g00;
-    AveCaesar::Data g01;
+    game::Welcome::Data g00;
+    game::AveCaesar::Data g01;
   } game_data;
 }
 
-bool (*GameManager::play_ptr)(void * data, GameManager::GameInfo & info) = &Welcome::play;
+bool (*GameManager::play_ptr)(void * data, GameManager::GameInfo & info) = &game::Welcome::play;
 
 void GameManager::set(int riddle) {
   void (*init_data)(void *);
   switch (riddle) {
   case 1:
-    init_data = &AveCaesar::init_data;
-    play_ptr = &AveCaesar::play;
+    init_data = &game::AveCaesar::init_data;
+    play_ptr = &game::AveCaesar::play;
     break;
   default:
-    init_data = &Welcome::init_data;
-    play_ptr = &Welcome::play;
+    init_data = &game::Welcome::init_data;
+    play_ptr = &game::Welcome::play;
   }
   init_data(&game_data);
 }
