@@ -1,9 +1,8 @@
 #ifndef SERIALCOMMUNICATOR_H
 #define SERIALCOMMUNICATOR_H
 
+#include "AnimManager.h"
 #include <cstdint>
-
-void animate(); // Forward declaration
 
 /** Serial communicator
   * Class which manages communication on serial link

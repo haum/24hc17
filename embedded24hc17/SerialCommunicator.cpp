@@ -28,7 +28,7 @@ uint32_t SerialCommunicator::read(char * data, uint32_t max) {
         run = false;
       }
     }
-    animate();
+    AnimManager::animate();
   }
 #else
   std::string str;
