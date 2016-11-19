@@ -33,6 +33,11 @@ class SerialCommunicator {
       * @param fmt  Format
       */
     void write(int data, IntFormat fmt = FMTDEC);
+
+    /** Dump file from SPIFFS
+      * @param path Path of file to dump
+      */
+    void dump_file(char * path);
 };
 
 #endif

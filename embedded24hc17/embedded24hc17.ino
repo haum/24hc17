@@ -2,6 +2,8 @@
 #include "EncodedState.h"
 #include "GameManager.h"
 
+#include <FS.h>
+
 namespace {
   const constexpr int led = 2;
   SerialCommunicator comm;
@@ -20,6 +22,8 @@ void setup() {
 
   EncodedState::ourid = ESP.getChipId();
   state.id() = EncodedState::ourid;
+
+  SPIFFS.begin();
 
   AnimManager::setup();
 }
