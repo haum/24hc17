@@ -2,8 +2,6 @@
 #include "EncodedState.h"
 #include "GameManager.h"
 
-#include <ESP8266WiFi.h>
-
 namespace {
   const constexpr int led = 2;
   SerialCommunicator comm;
