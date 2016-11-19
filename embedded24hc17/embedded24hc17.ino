@@ -20,9 +20,7 @@ void setup() {
 
   comm.write("24hc17\n", 7);
 
-  byte mac[6];
-  WiFi.softAPmacAddress(mac);
-  EncodedState::ourid = mac[0] | mac[1] << 8;
+  EncodedState::ourid = ESP.getChipId();
   state.id() = EncodedState::ourid;
 
   AnimManager::setup();
