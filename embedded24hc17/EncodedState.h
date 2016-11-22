@@ -40,7 +40,7 @@ class EncodedStateValue {
 class EncodedState {
 	public:
     /** Id of this board **/
-		static int ourid;
+		static uint16_t ourid;
 
     /** Constructor **/
 		EncodedState() { id() = ourid; }

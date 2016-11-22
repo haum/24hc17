@@ -1,6 +1,6 @@
 #include "EncodedState.h"
 
-int EncodedState::ourid {0};
+uint16_t EncodedState::ourid {0};
 
 void EncodedState::toString(char repr[22]) {
   // Make sure base phases change with any bit
