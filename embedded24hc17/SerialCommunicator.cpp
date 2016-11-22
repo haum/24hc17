@@ -3,6 +3,7 @@
 #ifdef ESP8266
 #include <HardwareSerial.h>
 #include <FS.h>
+#include "AnimManager.h"
 #else
 #include <iostream>
 #include <cstdio>

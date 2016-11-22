@@ -1,7 +1,6 @@
 #ifndef SERIALCOMMUNICATOR_H
 #define SERIALCOMMUNICATOR_H
 
-#include "AnimManager.h"
 #include <cstdint>
 
 /** Serial communicator

@@ -1,6 +1,7 @@
 #include "SerialCommunicator.h"
 #include "EncodedState.h"
 #include "GameManager.h"
+#include "AnimManager.h"
 
 #include <FS.h>
 
