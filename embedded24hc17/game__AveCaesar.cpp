@@ -11,7 +11,7 @@ namespace AveCaesar {
   bool play(void * data, GameManager::GameInfo & info) {
     Data * d = static_cast <Data*> (data);
 
-    info.comm.dump_file("AveCaesar/message");
+    info.comm.dump_file("/AveCaesar/message");
 
     char ans[255];
     int len = info.comm.read(ans, sizeof(ans));

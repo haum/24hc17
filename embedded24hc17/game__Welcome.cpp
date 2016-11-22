@@ -5,7 +5,7 @@ namespace game {
 namespace Welcome {
   void init_data(void*) {}
   bool play(void*, GameManager::GameInfo & info) {
-    info.comm.dump_file("Welcome/message");
+    info.comm.dump_file("/Welcome/message");
 
     EncodedState newstate;
     char token[22];
