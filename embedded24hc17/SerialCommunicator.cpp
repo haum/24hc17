@@ -63,9 +63,11 @@ void SerialCommunicator::write(int data, IntFormat fmt) {
 void SerialCommunicator::dump_file(char * path) {
 #ifdef ESP8266
   char buf[255];
-  auto f = SPIFFS.open(path, "r");
-  while (int r = f.readBytes(buf, sizeof(buf))) {
-    Serial.write(buf, r);
+  File f = SPIFFS.open(path, "r");
+  if (f) {
+    while (int r = f.readBytes(buf, sizeof(buf))) {
+      Serial.write(buf, r);
+    }
   }
 #endif
 }
