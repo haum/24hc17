@@ -17,13 +17,11 @@ void AnimManager::setup() {
 }
 
 void AnimManager::set(int anim) {
-  void (*init_data)(void *);
   switch (anim) {
   default:
-    init_data = &anim::TicTac::init_data;
+    anim::TicTac::init_data(&anim_data);
     play_ptr = &anim::TicTac::play;
   }
-  init_data(&anim_data);
 }
 
 void AnimManager::play() {
