@@ -13,17 +13,15 @@ namespace {
 bool (*GameManager::play_ptr)(void * data, GameManager::GameInfo & info) = &game::Welcome::play;
 
 void GameManager::set(int riddle) {
-  void (*init_data)(void *);
   switch (riddle) {
   case 1:
-    init_data = &game::AveCaesar::init_data;
+    game::AveCaesar::init_data(&game_data);
     play_ptr = &game::AveCaesar::play;
     break;
   default:
-    init_data = &game::Welcome::init_data;
+    game::Welcome::init_data(&game_data);
     play_ptr = &game::Welcome::play;
   }
-  init_data(&game_data);
 }
 
 bool GameManager::play(GameManager::GameInfo & info) {
