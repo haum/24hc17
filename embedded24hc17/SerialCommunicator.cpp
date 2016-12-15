@@ -12,7 +12,7 @@
 
 SerialCommunicator::SerialCommunicator() {
 #ifdef ESP8266
-  Serial.begin(115200);
+  Serial.begin(230400);
 #endif
 }
 
