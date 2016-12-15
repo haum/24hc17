@@ -1,0 +1,3 @@
+[submodule "embedded24hc17/esp8266-arduino.mk"]
+	path = embedded24hc17/esp8266-arduino.mk
+	url = https://github.com/neomilium/esp8266-arduino.mk.git
