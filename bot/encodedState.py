@@ -77,3 +77,6 @@ class EncodedState:
         if c < 26: return c
         c -= ord('a')-ord('A')
         return c + 26
+
+    def print_var(self):
+        return  'ID(' + str(self.id) + ') Faults(' + str(self.faults) + ') Riddle(' + str(self.riddle) + ')'
