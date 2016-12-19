@@ -3,32 +3,32 @@
 
 namespace game {
 namespace AveCaesar {
-  void init_data(void * data) {
-    Data * d = static_cast <Data*> (data);
-    d->faults = 0;
-  }
+	void init_data(void * data) {
+		Data * d = static_cast <Data*> (data);
+		d->faults = 0;
+	}
 
-  bool play(void * data, GameManager::GameInfo & info) {
-    Data * d = static_cast <Data*> (data);
+	bool play(void * data, GameManager::GameInfo & info) {
+		Data * d = static_cast <Data*> (data);
 
-    info.comm.dump_file("/AveCaesar/message");
+		info.comm.dump_file("/AveCaesar/message");
 
-    char ans[255];
-    int len = info.comm.read(ans, sizeof(ans));
-    if (len == 3 && ans[0] == 'a' && ans[1] == 'v' && ans[2] == 'e') {
-      EncodedState newstate;
-      newstate.faults() = d->faults;
-      newstate.riddle() = info.state.riddle() + 1;
-      char token[22];
-      newstate.toString(token);
-      info.comm.write("\nAve! Here is the next message to Nero:\n", 40);
-      info.comm.write(token, sizeof(token));
-      info.comm.write("\n", 1);
-      return true;
-    } else {
-      d->faults++;
-    }
-    return false;
-  }
+		char ans[255];
+		int len = info.comm.read(ans, sizeof(ans));
+		if (len == 3 && ans[0] == 'a' && ans[1] == 'v' && ans[2] == 'e') {
+			EncodedState newstate;
+			newstate.faults() = d->faults;
+			newstate.riddle() = info.state.riddle() + 1;
+			char token[22];
+			newstate.toString(token);
+			info.comm.write("\nAve! Here is the next message to Nero:\n", 40);
+			info.comm.write(token, sizeof(token));
+			info.comm.write("\n", 1);
+			return true;
+		} else {
+			d->faults++;
+		}
+		return false;
+	}
 }
 }
