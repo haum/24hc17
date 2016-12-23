@@ -2,11 +2,13 @@
 
 #include "game__Welcome.h"
 #include "game__AveCaesar.h"
+#include "game__SimpleFromStorage.h"
 
 namespace {
 	union {
 		game::Welcome::Data g00;
 		game::AveCaesar::Data g01;
+		game::SimpleFromStorage::Data g02;
 	} game_data;
 }
 
@@ -17,6 +19,10 @@ void GameManager::set(int riddle) {
 		case 1:
 			game::AveCaesar::init_data(&game_data);
 			play_ptr = &game::AveCaesar::play;
+			break;
+		case 2:
+			game::SimpleFromStorage::init_data(&game_data, "BracesMatch");
+			play_ptr = &game::SimpleFromStorage::play;
 			break;
 		default:
 			game::Welcome::init_data(&game_data);
