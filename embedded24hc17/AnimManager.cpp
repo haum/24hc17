@@ -19,6 +19,8 @@ namespace {
 		anim::Breathing::Data a05;
 		anim::HuePan::Data a06;
 		anim::HeartBeat::Data a07;
+		anim::Alea::Data a08;
+		anim::RandomTicking::Data a09;
 	} anim_data;
 }
 
@@ -32,6 +34,14 @@ void AnimManager::setup() {
 
 void AnimManager::set(int anim) {
 	switch (anim) {
+		case 41:
+			anim::RandomTicking::init_data(&anim_data, 34);
+			play_ptr = &anim::RandomTicking::play;
+		break;
+		case 43:
+			anim::Alea::init_data(&anim_data);
+			play_ptr = &anim::Alea::play;
+		break;
 		default:
 			anim::Breathing::init_data(&anim_data);
 			play_ptr = &anim::Breathing::play;
