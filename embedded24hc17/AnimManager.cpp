@@ -21,6 +21,7 @@ namespace {
 		anim::HeartBeat::Data a07;
 		anim::Alea::Data a08;
 		anim::RandomTicking::Data a09;
+		anim::Morse::Data a10;
 	} anim_data;
 }
 
@@ -34,14 +35,18 @@ void AnimManager::setup() {
 
 void AnimManager::set(int anim) {
 	switch (anim) {
+		case 1:
+			anim::Morse::init_data(&anim_data, "SOS");
+			play_ptr = &anim::Morse::play;
+			break;
 		case 41:
 			anim::RandomTicking::init_data(&anim_data, 34);
 			play_ptr = &anim::RandomTicking::play;
-		break;
+			break;
 		case 43:
 			anim::Alea::init_data(&anim_data);
 			play_ptr = &anim::Alea::play;
-		break;
+			break;
 		default:
 			anim::Breathing::init_data(&anim_data);
 			play_ptr = &anim::Breathing::play;
