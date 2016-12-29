@@ -8,6 +8,9 @@
 #include "anim__Breathing.h"
 #include "anim__HuePan.h"
 #include "anim__HeartBeat.h"
+#include "anim__Alea.h"
+#include "anim__Morse.h"
+#include "anim__RandomTicking.h"
 
 namespace {
 	union {
