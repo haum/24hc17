@@ -1,4 +1,5 @@
 #include "anim__Alea.h"
+#include "Arduino.h"
 
 
 namespace anim
@@ -23,7 +24,7 @@ namespace anim
 			if (d->divider == wait/10)
 			{
 				d->divider = 0;
-				led_roll = d->distribution(d->generator);
+				led_roll = random(0,12);
 
 				AnimManager::setLed(d->led, CRGB::Black);
 				d->led = led_roll;
