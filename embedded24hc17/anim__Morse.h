@@ -27,7 +27,7 @@ namespace anim
 			Morse_char current_morse;
 		};
 
-		void init_data(void * data, char[] phrase);
+		void init_data(void * data, char *phrase);
 	
 		void play(void * data);
 	}

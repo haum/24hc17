@@ -30,7 +30,7 @@ namespace anim
 				{
 					d->pos++;
 					d->tick = 0;
-					char a = d->phrase(d->pos);
+					char a = d->phrase[d->pos];
 					if (a == '\0')
 					{
 						d->pos = -1;
