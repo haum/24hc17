@@ -10,13 +10,13 @@ namespace anim
 		{
 			auto d = static_cast<Data*>(p);
 			d->divider = 0;
-			d->led = 9;
 			d->wait = wait;
 			AnimManager::clear();
 		}
 
 		void play(void* p)
 		{
+			const constexpr int wait = 200;
 			auto d = static_cast<Data*>(p);
 			int led_roll;
 
