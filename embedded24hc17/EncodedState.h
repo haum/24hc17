@@ -70,6 +70,9 @@ class EncodedState {
 		/** Fqults number of the state **/
 		EncodedStateValue <4, 0> faults() { return {state[1]}; }
 
+		/** Animation number **/
+		EncodedStateValue <5, 4> animation() { return {state[1]}; }
+
 	private:
 		/** State data **/
 		uint64_t state[2] {0, 0};
