@@ -23,7 +23,7 @@ namespace anim
 			if (d->divider == wait/50)
 			{
 				d->divider = 0;
-				blink = random(0, 2);
+				bool blink = random(0, 2);
 				if (blink)
 				{
 					AnimManager::setLed(random(0,12), colors[random(0, 12)]);
