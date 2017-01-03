@@ -40,6 +40,12 @@ class EncodedState:
         return True
 
     def to_string(self):
+        self.s1 = 0
+        self.s2 = 0
+        self.s1 |= self.id & 0xFFFF
+        self.s1 |= (self.riddle & 0xFF) << 16
+        self.s2 |= (self.faults & 0x0F)
+
         s1 = self.s1 ^ self.s2
         s2 = self.s2 + s1
 
