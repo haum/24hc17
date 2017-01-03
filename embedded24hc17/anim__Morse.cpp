@@ -25,7 +25,14 @@ namespace anim
 			if (d->divider == wait)
 			{
 				d->divider = 0;
-				AnimManager::setLed(9, get_morse_sign(d->current_morse, d->tick) ? CRGB::Red : CRGB::Black);
+				if(d->pos>=0)
+				{
+					AnimManager::setLed(9, get_morse_sign(d->current_morse, d->tick) ? CRGB::Red : CRGB::Black);
+				}
+				else
+				{
+					AnimManager::setLed(9, get_morse_sign(d->current_morse, d->tick) ? CRGB::Yellow : CRGB::Black);	
+				}
 				if (is_last_sign(d->current_morse, d->tick))
 				{
 					d->pos++;
@@ -82,7 +89,7 @@ namespace anim
 					new_morse.size = 4;
 					break;
 				case '\0':
-					new_morse.value = 0b00000000000000000000000000000000;
+					new_morse.value = 0b00000000000000000000000000000001;
 					new_morse.size = 7;
 					break;
 				default:
@@ -102,16 +109,6 @@ namespace anim
 		{
 			return (morse_letter.value & 1<<pos);
 		}
-
-
-
-
-
-
-
-
-
-
 
 	}
 
