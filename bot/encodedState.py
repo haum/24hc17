@@ -10,6 +10,7 @@ class EncodedState:
         self.id = 0
         self.faults = 0
         self.riddle = 0
+        self.animation = 0
 
     def from_string(self, rep):
         if not re.match(r"^[\w\d+/]{22}$", rep):
@@ -32,14 +33,21 @@ class EncodedState:
         self.s2 = s2 - s1
         self.s1 = self.s2 ^ s1
 
-
         self.id = (self.s1 & 0xFFFF)
         self.riddle = (self.s1 >> 16) & 0xFF
         self.faults = (self.s2 & 0x0F)
+        self.animation = (self.s2 >> 4) & 0x1F
 
         return True
 
     def to_string(self):
+        self.s1 = 0
+        self.s2 = 0
+        self.s1 |= self.id & 0xFFFF
+        self.s1 |= (self.riddle & 0xFF) << 16
+        self.s2 |= (self.faults & 0x0F)
+        self.s2 |= (self.animation & 0x1F) << 4
+
         s1 = self.s1 ^ self.s2
         s2 = self.s2 + s1
 
@@ -79,4 +87,4 @@ class EncodedState:
         return c + 26
 
     def print_var(self):
-        return  'ID(' + str(self.id) + ') Faults(' + str(self.faults) + ') Riddle(' + str(self.riddle) + ')'
+        return  'ID(' + str(self.id) + ') Faults(' + str(self.faults) + ') Riddle(' + str(self.riddle) + ') Animation(' + str(self.animation) + ')'
