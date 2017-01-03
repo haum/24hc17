@@ -65,6 +65,11 @@ void AnimManager::setLed(int pos, CRGB color) {
 		leds[pos] = color;
 }
 
+void AnimManager::clear() {
+	for (auto & led : leds)
+		led = CRGB::Black;
+}
+
 void AnimManager::animate() {
 	delay(10);
 	play();
