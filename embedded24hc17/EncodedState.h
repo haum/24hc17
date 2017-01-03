@@ -67,7 +67,7 @@ class EncodedState {
 		/** Riddle number of the state **/
 		EncodedStateValue <8, 16> riddle() { return {state[0]}; }
 
-		/** Fqults number of the state **/
+		/** Faults number of the state **/
 		EncodedStateValue <4, 0> faults() { return {state[1]}; }
 
 		/** Animation number **/
