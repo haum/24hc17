@@ -45,6 +45,7 @@ void loop() {
 		state = newstate;
 		state.print(comm);
 		GameManager::set(state.riddle());
+		AnimManager::set(state.animation());
 	} else {
 		comm.write("Unknown token\n", 14);
 	}
