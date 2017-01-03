@@ -11,13 +11,13 @@ namespace anim
 		struct Data
 		{
 			int divider;
+			int loopSteps;
+			int wait;
 		};
 
-	 	void init_data(void * data);
+	 	void init_data(void * data, int wait, int loopSteps);
 
-		void play(void * data);
+		void play(void * data);		
 	}
-
-	CRGB *colors;
 
 }
