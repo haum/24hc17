@@ -16,11 +16,10 @@ namespace anim
 
 		void play(void* p)
 		{
-			const constexpr int wait = 200;
 			auto d = static_cast<Data*>(p);
 			int led_roll;
 
-			if (d->divider == wait)
+			if (d->divider == d->wait)
 			{
 				d->divider = 0;
 				d->blink = !d->blink;
