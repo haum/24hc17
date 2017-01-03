@@ -27,6 +27,7 @@ void setup() {
 	SPIFFS.begin();
 
 	AnimManager::setup();
+      AnimManager::set(51);
 }
 
 void loop() {
