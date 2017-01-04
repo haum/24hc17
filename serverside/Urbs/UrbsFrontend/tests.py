@@ -231,3 +231,60 @@ class TeamViewTests(TestCase):
                 'result': []
             }
         )
+
+
+class TeamMembersViewTests(TestCase):
+    """Tests the Team members view"""
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.t1 = Team.objects.create(
+            name='Harkonnen',
+            location='Giedi Prime',
+            score=3
+        )
+
+        cls.t2 = Team.objects.create(
+            name='Atreides',
+            location='Arakis',
+            score=42
+        )
+        cls.u1 = Member.objects.create(pseudo='Leto', team=cls.t2)
+        cls.u2 = Member.objects.create(pseudo='Paul', team=cls.t2)
+
+    def test_without_users(self):
+        """Test the output of the view if the team has no user"""
+        response = self.client.get(reverse('team#members', args=[self.t1.name]))
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'command': 'get_team_members',
+                'status': 'no member in team',
+                'result': []
+            }
+        )
+
+    def test_with_users(self):
+        """Test the output of the view if the team has users"""
+        response = self.client.get(reverse('team#members', args=[self.t2.name]))
+        usercount = self.t2.member_set.filter(primary=True).count()
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'command': 'get_team_members',
+                'status': '%d member(s) in team'%(usercount,),
+                'result': [_.asdict(team=False) for _ in self.t2.member_set.filter(primary=True)]
+            }
+        )
+
+    def test_with_unknown_team(self):
+        """Test the output of the view if the team doesn't exist"""
+        response = self.client.get(reverse('team#members', args=['corrino']))
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'command': 'get_team_members',
+                'status': 'unknown team',
+                'result': []
+            }
+        )

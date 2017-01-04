@@ -129,7 +129,27 @@ def get_team(request, teamname):
 
 
 def get_team_members(request, teamname):
-    pass
+    """Returns a list of Team teamname's members"""
+
+    payload = {'command': 'get_team_members'}
+    try:
+        team = Team.objects.get(name=teamname)
+    except ObjectDoesNotExist:
+        payload = {
+            'status': 'unknown team',
+            'command': 'get_team_members',
+            'result': []
+        }
+        return forge_json_response(payload, code=404)
+
+    usercount = team.member_set.filter(primary=True).count()
+    if usercount:
+        payload['result'] = [_.asdict(team=False) for _ in team.member_set.filter(primary=True)]
+        payload['status'] = '%d member(s) in team'%(usercount,)
+    else:
+        payload['result'] = []
+        payload['status'] = 'no member in team'
+    return forge_json_response(payload)
 
 
 def get_team_record(request, teamname):
