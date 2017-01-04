@@ -73,3 +73,105 @@ class UserViewTests(TestCase):
                 'result': exppayload_result
             }
         )
+
+
+class RegisterViewTests(TestCase):
+    """Test if the registering process goes right"""
+
+    def test_full_registration(self):
+        """
+        The /team/<teamname>/adduser/<username> is called
+        with neither team or user existing beforehand.
+        """
+
+        response = self.client.get(reverse('team#register_user', args=['Team1', 'User1']))
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'status': 'user and team created',
+                'command': 'register_user',
+                'result': {
+                    'pseudo': 'User1',
+                    'primary': True,
+                    'team': {
+                        'name': 'Team1',
+                        'location': '',
+                        'score': 0
+                    }
+                }
+            }
+        )
+        u1 = Member.objects.get(pseudo='User1')
+        t1 = Team.objects.get(name='Team1')
+        self.assertEqual(str(u1), 'User1 (Team1)')
+        self.assertEqual(t1.score, 0)
+        self.assertEqual(t1, u1.team)
+
+    def test_partial_registration(self):
+        """
+        The /team/<teamname>/adduser/<username> is called
+        with team already registered.
+        """
+
+        t1 = Team.objects.create(name='Team1')
+        response = self.client.get(reverse('team#register_user', args=['Team1', 'User1']))
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'status': 'user created',
+                'command': 'register_user',
+                'result': {
+                    'pseudo': 'User1',
+                    'primary': True,
+                    'team': t1.asdict()
+                }
+            }
+        )
+
+        u1 = Member.objects.get(pseudo='User1')
+        self.assertEqual(str(u1), 'User1 (Team1)')
+        self.assertEqual(Team.objects.count(), 1)
+        self.assertEqual(t1, u1.team)
+
+    def test_already_registered(self):
+        """
+        The /team/<teamname>/adduser/<username> is called
+        with team and user already registered (user being linked to team).
+        """
+
+        t1 = Team.objects.create(name='Team1')
+        u1 = Member.objects.create(pseudo='User1', team=t1)
+        response = self.client.get(reverse('team#register_user', args=[t1.name, u1.pseudo]))
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'status': 'user already in team %s'%(t1.name,),
+                'command': 'register_user',
+                'result': u1.asdict()
+            }
+        )
+
+        self.assertEqual(Member.objects.count(), 1)
+        self.assertEqual(Team.objects.count(), 1)
+
+    def test_conflicting_registration(self):
+        """
+        The /team/<teamname>/adduser/<username> is called
+        with user already registered in another team.
+        """
+
+        t1 = Team.objects.create(name='Team1')
+        u1 = Member.objects.create(pseudo='User1', team=t1)
+        response = self.client.get(reverse('team#register_user', args=['Another_Team', u1.pseudo]))
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'status': 'user already in another team (%s)'%(t1.name,),
+                'command': 'register_user',
+                'result': u1.asdict()
+            }
+        )
+
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(Member.objects.count(), 1)
+        self.assertEqual(Team.objects.count(), 1)
