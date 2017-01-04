@@ -40,7 +40,17 @@ def get_user(request, username):
 
 
 def get_all_users(request):
-    pass
+    """Return the list of all users"""
+    users = Member.objects.all()
+    payload = {
+        'command': 'get_all_users',
+        'result': [u.asdict() for u in users]
+    }
+    if len(users)==0:
+        payload['status'] = 'no user found'
+    else:
+        payload['status'] = 'users found'
+    return forge_json_response(payload)
 
 
 def register_user(request, teamname, username):

@@ -43,3 +43,33 @@ class UserViewTests(TestCase):
                 'result': []
             }
         )
+
+    def test_full_list_no_user(self):
+        """Appropriate message if there is no user in the database"""
+
+        response = self.client.get(reverse('user#all'))
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'status': 'no user found',
+                'command': 'get_all_users',
+                'result': []
+            }
+        )
+
+    def test_full_list_with_user(self):
+        """Appropriate message if there is no user in the database"""
+
+        exppayload_result = []
+        for i in range(9):
+            u = Member.objects.create(pseudo='user%d'%(i,), team=self.team)
+            exppayload_result.append(u.asdict())
+        response = self.client.get(reverse('user#all'))
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'status': 'users found',
+                'command': 'get_all_users',
+                'result': exppayload_result
+            }
+        )
