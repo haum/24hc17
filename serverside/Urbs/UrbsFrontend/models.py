@@ -16,6 +16,17 @@ class Team(M.Model):
         return self.name
 
 
+    def asdict(self, members=False):
+        dictrepr = {
+            'name': self.name,
+            'location': self.location,
+            'score': self.score
+        }
+        if members:
+            dictrepr['members'] = [ _.asdict(team=False) for _ in self.member_set.filter(primary=True)]
+        return dictrepr
+
+
 class Member(M.Model):
     """ Team Member
 
@@ -35,6 +46,20 @@ class Member(M.Model):
             return "%s (%s)"%(self.pseudo,self.team)
         else:
             return "%s aka. %s (%s)"%(self.pseudo,self.mainentry, self.team)
+
+
+    def asdict(self, team=True):
+        """Return a dict representation of the object"""
+
+        dictrepr = {
+            'pseudo': self.pseudo,
+            'primary': self.primary,
+        }
+        if team:
+            dictrepr['team'] = self.team.asdict()
+        if not self.primary:
+            dictrepr['mainentry'] = self.mainentry.asdict()
+        return dictrepr
 
 
 class Challenge(M.Model):
