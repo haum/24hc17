@@ -108,7 +108,24 @@ def register_user(request, teamname, username):
 
 
 def get_team(request, teamname):
-    pass
+    """Returns a complete Team object (with associated primary users)"""
+
+    try:
+        team = Team.objects.get(name=teamname)
+    except ObjectDoesNotExist:
+        payload = {
+            'status': 'unknown team',
+            'command': 'get_team',
+            'result': []
+        }
+        return forge_json_response(payload, code=404)
+
+    payload = {
+        'status': 'team found',
+        'command': 'get_team',
+        'result': [team.asdict(members=True)]
+    }
+    return forge_json_response(payload)
 
 
 def get_team_members(request, teamname):

@@ -175,3 +175,59 @@ class RegisterViewTests(TestCase):
         self.assertEqual(response.status_code, 409)
         self.assertEqual(Member.objects.count(), 1)
         self.assertEqual(Team.objects.count(), 1)
+
+
+class TeamViewTests(TestCase):
+    """Tests the Team view"""
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.t1 = Team.objects.create(
+            name='Harkonnen',
+            location='Giedi Prime',
+            score=3
+        )
+
+        cls.t2 = Team.objects.create(
+            name='Atreides',
+            location='Arakis',
+            score=42
+        )
+        cls.u1 = Member.objects.create(pseudo='Leto', team=cls.t2)
+        cls.u2 = Member.objects.create(pseudo='Paul', team=cls.t2)
+
+    def test_without_users(self):
+        """Test the output of the view if the team has no user"""
+        response = self.client.get(reverse('team#get_team', args=[self.t1.name]))
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'command': 'get_team',
+                'status': 'team found',
+                'result': [self.t1.asdict(members=True)]
+            }
+        )
+
+    def test_with_users(self):
+        """Test the output of the view if the team has users"""
+        response = self.client.get(reverse('team#get_team', args=[self.t2.name]))
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'command': 'get_team',
+                'status': 'team found',
+                'result': [self.t2.asdict(members=True)]
+            }
+        )
+
+    def test_with_unknown_team(self):
+        """Test the output of the view if the team doesn't exist"""
+        response = self.client.get(reverse('team#get_team', args=['corrino']))
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'status': 'unknown team',
+                'command': 'get_team',
+                'result': []
+            }
+        )
