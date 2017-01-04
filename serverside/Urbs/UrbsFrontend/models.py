@@ -9,7 +9,7 @@ class Team(M.Model):
     """
 
     name = M.TextField(max_length=200)
-    location = M.TextField(max_length=200)
+    location = M.TextField(max_length=200, default='')
     score = M.IntegerField(default=0)
 
     def __unicode__(self):
@@ -20,14 +20,12 @@ class Member(M.Model):
     """ Team Member
 
     pseudo -- IRC Pseudo
-    token --  used to detect pseudo variants
     primary -- is this the main pseudo of the user or just a variant
     mainentry -- "main pseudo" to which this variant is like
     team -- User's team
     """
 
-    pseudo = M.TextField(max_length=200)
-    token = M.TextField(max_length=100, unique=True)
+    pseudo = M.TextField(max_length=200, unique=True)
     primary = M.BooleanField(default=True)
     mainentry = M.ForeignKey('Member', blank=True, null=True)
     team = M.ForeignKey('Team')
@@ -55,47 +53,14 @@ class Challenge(M.Model):
         return self.name
 
 
-class RiddleTree(M.Model):
-    """ Riddle Tree
-    name --
+class Step(M.Model):
     """
-
-    name = M.TextField(max_length=100)
-
-    def __unicode__(self):
-        return self.name
-
-
-class RTLeaf(M.Model):
-    """ Riddle Tree Leaf
-    challenge --
-    level -- level in the tree
-    tree -- tree to which the leaf is linked
+    A step in the line of riddles
     """
-
-    challenge = M.ForeignKey('Challenge')
-    level = M.IntegerField(default=0)
-    tree = M.ForeignKey('RiddleTree')
-
-    def __unicode__(self):
-        return "%s (at level %d of %s)"%(self.challenge, self.level, self.tree)
-
-
-class RTBranch(M.Model):
-    """ Riddle Tree branch
-
-    from_leaf -- RTLeaf at the beginning
-    to_leaf -- RTLeaf at the end
-    tree -- tree to which the leaf is linked
-    """
-
-    from_leaf = M.ForeignKey('RTLeaf', related_name='branchstarting')
-    to_leaf = M.ForeignKey('RTLeaf', related_name='branchending')
-    tree = M.ForeignKey('RiddleTree')
-
-    def __unicode__(self):
-        return "%s ==> %s"%(self.from_leaf, self.to_leaf)
-
+    index = M.IntegerField(null=True, blank=True)
+    challenge = M.ForeignKey(Challenge)
+    next_challenge = M.ForeignKey('self', blank=True, null=True)
+    jails = M.ManyToManyField(Challenge, blank=True, related_name='jails')
 
 
 class Attempt(M.Model):
@@ -111,8 +76,8 @@ class Attempt(M.Model):
     """
 
     timestamp = M.DateTimeField(auto_now_add=True)
-    leaf = M.ForeignKey('Team')
-    leaf = M.ForeignKey('RTLeaf')
+    step = M.ForeignKey(Step)
+    jail = M.BooleanField(default=False)
     token_in = M.TextField(max_length=100)
     token_out = M.TextField(max_length=100)
     faults = M.IntegerField(default=0)
