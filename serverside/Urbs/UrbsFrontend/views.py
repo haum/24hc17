@@ -157,7 +157,17 @@ def get_team_record(request, teamname):
 
 
 def get_all_teams(request):
-    pass
+    """Return the list of all teams"""
+    teams = Team.objects.all()
+    payload = {
+        'command': 'get_all_teams',
+        'result': [t.asdict(members=False) for t in teams]
+    }
+    if len(teams)==0:
+        payload['status'] = 'no team found'
+    else:
+        payload['status'] = 'teams found'
+    return HttpResponse(json.dumps(payload), content_type='application/json')
 
 
 def propose_token(request):

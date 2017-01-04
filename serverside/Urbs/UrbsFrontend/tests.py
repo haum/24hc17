@@ -288,3 +288,45 @@ class TeamMembersViewTests(TestCase):
                 'result': []
             }
         )
+
+
+class TeamAllViewTests(TestCase):
+    """Test the teams listing view"""
+
+    def test_full_list_no_user(self):
+        """Appropriate message if there is no user in the database"""
+
+        response = self.client.get(reverse('team#all'))
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'status': 'no team found',
+                'command': 'get_all_teams',
+                'result': []
+            }
+        )
+
+    def test_full_list_with_user(self):
+        """Appropriate message if there is no user in the database"""
+
+        t1 = Team.objects.create(
+            name='Harkonnen',
+            location='Giedi Prime',
+            score=3
+        )
+
+        t2 = Team.objects.create(
+            name='Atreides',
+            location='Arakis',
+            score=42
+        )
+
+        response = self.client.get(reverse('team#all'))
+        self.assertEqual(
+            json.loads(response.content.decode('utf8')),
+            {
+                'status': 'teams found',
+                'command': 'get_all_teams',
+                'result': [t1.asdict(members=False), t2.asdict(members=False)]
+            }
+        )
