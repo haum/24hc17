@@ -8,7 +8,7 @@ class Team(M.Model):
     score -- score
     """
 
-    name = M.TextField(max_length=200)
+    name = M.TextField(max_length=200, unique=True)
     location = M.TextField(max_length=200, default='')
     score = M.IntegerField(default=0)
 
