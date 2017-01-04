@@ -12,7 +12,7 @@ class Team(M.Model):
     location = M.TextField(max_length=200, default='')
     score = M.IntegerField(default=0)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -30,7 +30,7 @@ class Member(M.Model):
     mainentry = M.ForeignKey('Member', blank=True, null=True)
     team = M.ForeignKey('Team')
 
-    def __unicode__(self):
+    def __str__(self):
         if self.primary:
             return "%s (%s)"%(self.pseudo,self.team)
         else:
@@ -49,7 +49,7 @@ class Challenge(M.Model):
     description = M.TextField(max_length=1000, blank=True, null=True)
     index = M.IntegerField(default=0)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -61,6 +61,10 @@ class Step(M.Model):
     challenge = M.ForeignKey(Challenge)
     next_challenge = M.ForeignKey('self', blank=True, null=True)
     jails = M.ManyToManyField(Challenge, blank=True, related_name='jails')
+
+    def __str__(self):
+        jailcount = self.jails.count()
+        return "Step %d using challenge %s (%d jails)"%(self.index, str(self.challenge), jailcount)
 
 
 class Attempt(M.Model):
@@ -83,7 +87,7 @@ class Attempt(M.Model):
     faults = M.IntegerField(default=0)
     points = M.IntegerField(default=0)
 
-    def __unicode__(self):
+    def __str__(self):
         "Attempt from %s at %s on %s"%(self.team, self.timestamp, self.leaf)
 
 
@@ -94,7 +98,7 @@ class MessageType(M.Model):
 
     name = M.TextField(max_length=100)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -109,7 +113,7 @@ class Message(M.Model):
     index = M.IntegerField(default=0)
     type = M.ForeignKey('MessageType')
 
-    def __unicode__(self):
+    def __str__(self):
         return "(%s) %s"%(self.type, self.message)
 
 
@@ -122,5 +126,5 @@ class Animation(M.Model):
     name = M.TextField(max_length=100)
     index = M.IntegerField(default=0)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
