@@ -6,14 +6,17 @@ namespace anim
 	namespace Morse
 	{
 
-		void init_data(void* p, char* phrase = "SOS")
+		void init_data(void* p, char* phrase, int led, CRGB onColor, CRGB endColor)
 		{
 			auto d = static_cast<Data*>(p);
 			d->divider = 0;
-			d->phrase = phrase;
+			strncpy(d->phrase, phrase, 127);
 			d->tick = 0;
 			d->pos = 0;
 			d->current_morse = get_morse_char(phrase[0]);
+			d->led = led;
+			d->onColor = onColor.b | (onColor.g << 8) | (onColor.r << 16);
+			d->endColor = endColor.b | (endColor.g << 8) | (endColor.r << 16);
 			AnimManager::clear();
 		}
 
@@ -25,33 +28,7 @@ namespace anim
 			if (d->divider == wait)
 			{
 				d->divider = 0;
-				/*bool test = get_morse_sign(d->current_morse, d->tick);
-				AnimManager::setLed(9, test ? CRGB::Red : CRGB::Black);
-				Serial.println(test);*/
-
-				if(d->pos>=0)
-				{
-					AnimManager::setLed(9, get_morse_sign(d->current_morse, d->tick) ? CRGB::Red : CRGB::Black);
-				}
-				else
-				{
-					AnimManager::setLed(9, get_morse_sign(d->current_morse, d->tick) ? CRGB::Yellow : CRGB::Black);	
-				}
-				if (is_last_sign(d->current_morse, d->tick))
-				{
-					d->pos++;
-					d->tick = 0;
-					char a = d->phrase[d->pos];
-					if (a == '\0')
-					{
-						d->pos = -1;
-					}
-					d->current_morse = get_morse_char(a);
-				}
-				else
-				{
-					d->tick++;
-				}
+				send_sign(d);
 			}
 			else
 			{
@@ -260,6 +237,64 @@ namespace anim
 		bool get_morse_sign(Morse_char morse_letter, int pos)
 		{
 			return (morse_letter.value & 1<<pos);
+		}
+
+		void send_sign(Data* d)
+		{
+			//Serial.println("Youpi");
+			if(d->pos>=0)
+			{
+				//Serial.println("Youpo");
+				AnimManager::setLed(d->led, get_morse_sign(d->current_morse, d->tick) ? d->onColor : CRGB::Black);
+			}
+			else
+			{
+				//Serial.println("Youpa");
+				AnimManager::setLed(d->led, get_morse_sign(d->current_morse, d->tick) ? d->endColor : CRGB::Black);	
+			}
+			if (is_last_sign(d->current_morse, d->tick))
+			{
+				d->pos++;
+				d->tick = 0;
+				char a = d->phrase[d->pos];
+				if (a == '\0')
+				{
+					d->pos = -1;
+				}
+				d->current_morse = get_morse_char(a);
+			}
+			else
+			{
+				d->tick++;
+			}
+		}
+
+
+		void send_sign(char* phrase, int* char_pos, int* sign_pos, Morse_char* current_morse, int led, CRGB onColor, CRGB endColor)
+		{
+			if(*char_pos>=0)
+			{
+				AnimManager::setLed(led, get_morse_sign(*current_morse, *sign_pos) ? onColor : CRGB::Black);
+			}
+			else
+			{
+				AnimManager::setLed(led, get_morse_sign(*current_morse, *sign_pos) ? endColor : CRGB::Black);	
+			}
+			if (is_last_sign(*current_morse, *sign_pos))
+			{
+				*char_pos++;
+				*sign_pos = 0;
+				char a = *(phrase + *char_pos);
+				if (a == '\0')
+				{
+					*char_pos = -1;
+				}
+				*current_morse = get_morse_char(a);
+			}
+			else
+			{
+				*sign_pos++;
+			}
 		}
 
 	}

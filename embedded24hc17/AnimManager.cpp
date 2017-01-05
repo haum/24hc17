@@ -53,7 +53,7 @@ void AnimManager::set(int anim) {
 			play_ptr = &anim::Morse::play;
 			break;
 		case 2:
-			anim::Morse::init_data(&anim_data, "WE ARE HACKERS");
+			anim::Morse::init_data(&anim_data, "WE ARE HACKERS", 8, CRGB::Green);
 			play_ptr = &anim::Morse::play;
 			break;
 		case 3:

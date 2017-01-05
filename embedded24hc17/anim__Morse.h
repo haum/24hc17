@@ -22,14 +22,22 @@ namespace anim
 		{
 			int divider;
 			int tick;
-			char* phrase;
+			char phrase[128];
 			int pos;
+			int led;
+			int onColor;
+			int endColor;
 			Morse_char current_morse;
 		};
 
-		void init_data(void * data, char *phrase);
+		void init_data(void * data, char *phrase, int led = 9, CRGB onColor = CRGB::Red, CRGB endColor = CRGB::Yellow);
 	
 		void play(void * data);
+
+		void send_sign(Data* d);
+
+		void send_sign(char* phrase, int* char_pos, int* sign_pos, Morse_char* current_morse, int led, CRGB onColor, CRGB endColor);
+
 	}
 
 }
