@@ -32,6 +32,15 @@ class AnimManager {
 		/** Set scalp color **/
 		static void setLedScalp(CRGB color);
 
+		/** Set scalp color **/
+		static void setRingA(CRGB color);
+		
+		/** Set scalp color **/
+		static void setRingB(CRGB color);
+		
+		/** Set scalp color **/
+		static void setRingC(CRGB color);
+		
 	private:
 		/** Data pin for neopixel **/
 		static const constexpr int neopixel_datapin = D3;

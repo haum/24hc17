@@ -12,6 +12,8 @@
 #include "anim__Morse.h"
 #include "anim__RandomTicking.h"
 #include "anim__Fiesta.h"
+#include "anim__DeathStar.h"
+#include "anim__TestsLVA.h"
 
 namespace {
 	union {
@@ -27,6 +29,8 @@ namespace {
 		anim::RandomTicking::Data a09;
 		anim::Morse::Data a10;
 		anim::Fiesta::Data a11;
+		anim::DeathStar::Data a12;
+		anim::TestsLVA::Data a13;
 	} anim_data;
 }
 
@@ -68,6 +72,14 @@ void AnimManager::set(int anim) {
 			anim::Alea::init_data(&anim_data);
 			play_ptr = &anim::Alea::play;
 			break;
+		case 44:
+			anim::DeathStar::init_data(&anim_data, "PERDU");
+			play_ptr = &anim::DeathStar::play;
+			break;
+		case 45:
+			anim::TestsLVA::init_data(&anim_data);
+			play_ptr = &anim::TestsLVA::play;
+			break;
 		case 51:
 			anim::Fiesta::init_data(&anim_data, 4, 1);
 			play_ptr = &anim::Fiesta::play;
@@ -103,6 +115,27 @@ void AnimManager::setLedScalp(CRGB color) {
 	leds[10] = color;
 }
 
+void AnimManager::setRingA(CRGB color) {
+	leds[2] = color;
+	leds[3] = color;
+	leds[8] = color;
+	leds[10] = color;
+}
+
+void AnimManager::setRingB(CRGB color) {
+	leds[1] = color;
+	leds[4] = color;
+	leds[7] = color;
+	leds[11] = color;
+}
+
+void AnimManager::setRingC(CRGB color) {
+	leds[0] = color;
+	leds[5] = color;
+	leds[6] = color;
+	leds[12] = color;
+}			
+			
 void AnimManager::clear() {
 	for (auto & led : leds)
 		led = CRGB::Black;
