@@ -16,6 +16,7 @@
 #include "anim__Rings.h"
 //#include "anim__TestsLVA.h"
 #include "anim__Hangman.h"
+#include "anim__Storm.h"
 
 namespace {
 	union {
@@ -35,6 +36,7 @@ namespace {
 //		anim::TestsLVA::Data a13;
 		anim::Rings::Data a14;
 		anim::Hangman::Data a15;
+		anim::Storm::Data a16;
 	} anim_data;
 }
 
@@ -87,6 +89,10 @@ void AnimManager::set(int anim) {
 		case 46:
 			anim::Hangman::init_data(&anim_data, 8);
 			play_ptr = &anim::Hangman::play;
+			break;
+		case 47:
+			anim::Storm::init_data(&anim_data);
+			play_ptr = &anim::Storm::play;
 			break;
 		case 51:
 			anim::Fiesta::init_data(&anim_data, 4, 1);
