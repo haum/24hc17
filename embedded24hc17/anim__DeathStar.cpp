@@ -11,7 +11,7 @@ namespace anim
 		
 		
 		
-		void init_data(void * data, char *phrase)
+		void init_data(void * p, char *phrase)
 		{
 			anim::Morse::init_data(p, phrase, 2, CRGB::Green, CRGB::Red);
 		};
