@@ -2,7 +2,7 @@
 
 namespace anim 
 {
-	namespace TestsLVA 
+	namespace Rings 
 	{
 		struct Data 
 		{

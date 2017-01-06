@@ -1,8 +1,8 @@
-#include "anim__TestsLVA.h"
+#include "anim__Rings.h"
 
 namespace anim 
 {
-	namespace TestsLVA 
+	namespace Rings 
 	{
 
 		void init_data(void* p) 
