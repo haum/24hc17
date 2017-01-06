@@ -13,7 +13,7 @@ namespace anim
 			anim::Morse::Data d2;
 		};
 
-		void init_data(void * p, char *phrase1, char *phrase2, int led1, int led2, CRGB onColor1 = CRGB::Red, CRGB onColor2 = CRGB::Red, CRGB endColor1 = CRGB::Yellow, CRGB endColor2 = CRGB::Yellow);
+		void init_data(void * p, char *phrase1, char *phrase2, int led1, int led2, int wait1 = 20, int wait2 = 20, CRGB onColor1 = CRGB::Red, CRGB onColor2 = CRGB::Red, CRGB endColor1 = CRGB::Yellow, CRGB endColor2 = CRGB::Yellow);
 	
 		void play(void * data);
 

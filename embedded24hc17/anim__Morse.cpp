@@ -6,10 +6,11 @@ namespace anim
 	namespace Morse
 	{
 
-		void init_data(void* p, char* phrase, int led, CRGB onColor, CRGB endColor)
+		void init_data(void* p, char* phrase, int led, int wait, CRGB onColor, CRGB endColor)
 		{
 			auto d = static_cast<Data*>(p);
 			d->divider = 0;
+			d->wait = wait;
 			strncpy(d->phrase, phrase, 127);
 			d->tick = 0;
 			d->pos = 0;
@@ -22,10 +23,9 @@ namespace anim
 
 		void play(void* p)
 		{
-			const constexpr int wait = 10;
 			auto d = static_cast<Data*>(p);
 
-			if (d->divider == wait)
+			if (d->divider == d->wait)
 			{
 				d->divider = 0;
 				send_sign(d);

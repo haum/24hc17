@@ -24,6 +24,7 @@ namespace anim
 		struct Data
 		{
 			int divider;
+			int wait;
 			int tick;
 			char phrase[128];
 			int pos;
@@ -33,7 +34,7 @@ namespace anim
 			Morse_char current_morse;
 		};
 
-		void init_data(void * data, char *phrase, int led = 9, CRGB onColor = CRGB::Red, CRGB endColor = CRGB::Yellow);
+		void init_data(void * data, char *phrase, int led = 9, int wait = 20, CRGB onColor = CRGB::Red, CRGB endColor = CRGB::Yellow);
 	
 		void play(void * data);
 
