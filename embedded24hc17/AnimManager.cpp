@@ -13,6 +13,7 @@
 #include "anim__RandomTicking.h"
 #include "anim__Fiesta.h"
 #include "anim__DeathStar.h"
+#include "anim__Rings.h"
 //#include "anim__TestsLVA.h"
 
 namespace {
@@ -31,6 +32,7 @@ namespace {
 		anim::Fiesta::Data a11;
 //		anim::DeathStar::Data a12;
 //		anim::TestsLVA::Data a13;
+		anim::Rings::Data a14;
 	} anim_data;
 }
 
@@ -76,10 +78,10 @@ void AnimManager::set(int anim) {
 			anim::DeathStar::init_data(&anim_data, "PERDU");
 			play_ptr = &anim::DeathStar::play;
 			break;
-/*		case 45:
-			anim::TestsLVA::init_data(&anim_data);
-			play_ptr = &anim::TestsLVA::play;
-			break;*/
+		case 45:
+			anim::Rings::init_data(&anim_data);
+			play_ptr = &anim::Rings::play;
+			break;
 		case 51:
 			anim::Fiesta::init_data(&anim_data, 4, 1);
 			play_ptr = &anim::Fiesta::play;
