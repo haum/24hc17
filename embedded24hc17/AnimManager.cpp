@@ -15,6 +15,7 @@
 #include "anim__DeathStar.h"
 #include "anim__Rings.h"
 //#include "anim__TestsLVA.h"
+#include "anim__Hangman.h"
 
 namespace {
 	union {
@@ -33,6 +34,7 @@ namespace {
 //		anim::DeathStar::Data a12;
 //		anim::TestsLVA::Data a13;
 		anim::Rings::Data a14;
+		anim::Hangman::Data a15;
 	} anim_data;
 }
 
@@ -55,7 +57,7 @@ void AnimManager::set(int anim) {
 			play_ptr = &anim::Morse::play;
 			break;
 		case 2:
-			anim::Morse::init_data(&anim_data, "WE ARE HACKERS", 8, CRGB::Green);
+			anim::Morse::init_data(&anim_data, "WE ARE HACKERS", 8, 20, CRGB::Green);
 			play_ptr = &anim::Morse::play;
 			break;
 		case 3:
@@ -82,11 +84,14 @@ void AnimManager::set(int anim) {
 			anim::Rings::init_data(&anim_data);
 			play_ptr = &anim::Rings::play;
 			break;
+		case 46:
+			anim::Hangman::init_data(&anim_data, 8);
+			play_ptr = &anim::Hangman::play;
+			break;
 		case 51:
 			anim::Fiesta::init_data(&anim_data, 4, 1);
 			play_ptr = &anim::Fiesta::play;
 			break;
-
 		default:
 			anim::Breathing::init_data(&anim_data);
 			play_ptr = &anim::Breathing::play;
