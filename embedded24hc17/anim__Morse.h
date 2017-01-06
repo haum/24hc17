@@ -1,5 +1,8 @@
 #include "AnimManager.h"
 
+#ifndef ANIM__MORSE__H
+#define ANIM__MORSE__H
+
 namespace anim
 {
 
@@ -41,3 +44,5 @@ namespace anim
 	}
 
 }
+
+#endif
