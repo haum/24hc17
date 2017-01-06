@@ -33,13 +33,13 @@ class AnimManager {
 		static void setLedScalp(CRGB color);
 
 		/** Set scalp color **/
-		static void setRingA(CRGB color);
+		static void setTopRing(CRGB color);
 		
 		/** Set scalp color **/
-		static void setRingB(CRGB color);
+		static void setMiddleRing(CRGB color);
 		
 		/** Set scalp color **/
-		static void setRingC(CRGB color);
+		static void setBottomRing(CRGB color);
 		
 	private:
 		/** Data pin for neopixel **/

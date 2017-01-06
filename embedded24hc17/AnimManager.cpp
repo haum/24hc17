@@ -115,21 +115,21 @@ void AnimManager::setLedScalp(CRGB color) {
 	leds[10] = color;
 }
 
-void AnimManager::setRingA(CRGB color) {
+void AnimManager::setTopRing(CRGB color) {
 	leds[2] = color;
 	leds[3] = color;
 	leds[8] = color;
 	leds[10] = color;
 }
 
-void AnimManager::setRingB(CRGB color) {
+void AnimManager::setMiddleRing(CRGB color) {
 	leds[1] = color;
 	leds[4] = color;
 	leds[7] = color;
 	leds[11] = color;
 }
 
-void AnimManager::setRingC(CRGB color) {
+void AnimManager::setBottomRing(CRGB color) {
 	leds[0] = color;
 	leds[5] = color;
 	leds[6] = color;
