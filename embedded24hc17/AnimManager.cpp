@@ -21,6 +21,8 @@
 #include "anim__HorizontalChase.h"
 #include "anim__VerticalChase.h"
 #include "anim__LockChase.h"
+#include "anim__ScrollUp.h"
+#include "anim__ScrollDown.h"
 
 
 namespace {
