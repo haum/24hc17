@@ -16,10 +16,10 @@ namespace anim {
 			switch(ring)
 			{
 				case 0:
-					*(d->ring) = *Ring1;
+					d->ring = Ring1;
 					break;
 				case 1:
-					*(d->ring) = *Ring2;
+					d->ring = Ring2;
 					break;
 			}
 			d->dir = 0;
