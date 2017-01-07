@@ -8,12 +8,13 @@ namespace anim {
 		const constexpr int MiddleRing[4] = {10, 1, 7, 4};
 		const constexpr int TopRing[4] = {0, 6, 5, 12};
 
-		void init_data(void* p, int ring, int wait)
+		void init_data(void* p, int ring, int dir, int wait)
 		{
 			auto d = static_cast<Data*>(p);
 			d->divider = 0;
 			d->wait = wait;
 			d->step = 0;
+			d->dir = dir;
 			switch(ring)
 			{
 				case 0:
@@ -36,13 +37,29 @@ namespace anim {
 			{
 				d->divider = 0;
 				AnimManager::setLed(d->ring[d->step], CRGB::Black);
-				if (d->step < 3)
+				if (d->dir == 0)
 				{
-					d->step++;
+					if (d->step < 3)
+					{
+
+						d->step++;
+					}
+					else
+					{
+						d->step = 0;
+					}
 				}
 				else
 				{
-					d->step = 0;
+					if (d->step > 0)
+					{
+
+						d->step--;
+					}
+					else
+					{
+						d->step = 3;
+					}					
 				}
 				AnimManager::setLed(d->ring[d->step], CRGB::Red);
 			}
