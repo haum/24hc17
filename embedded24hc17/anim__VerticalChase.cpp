@@ -7,7 +7,7 @@ namespace anim {
 		const constexpr int Ring1[7] = {0, 1, 2, 9, 3, 4, 5};
 		const constexpr int Ring2[7] = {6, 7, 8, 9, 10, 11, 12};
 
-		void init_data(void* p, int ring, int wait)
+		void init_data(void* p, int ring, int wait, CRGB color)
 		{
 			auto d = static_cast<Data*>(p);
 			d->divider = 0;
@@ -23,6 +23,7 @@ namespace anim {
 					break;
 			}
 			d->dir = 0;
+			d->color = color.b | (color.g << 8) | (color.r << 16);
 			AnimManager::clear();
 		}
 
@@ -59,7 +60,7 @@ namespace anim {
 						d->dir = 0;
 					}					
 				}
-				AnimManager::setLed(d->ring[d->step], CRGB::Red);
+				AnimManager::setLed(d->ring[d->step], d->color);
 			}
 			else
 			{
