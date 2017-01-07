@@ -72,11 +72,16 @@ bool EncodedState::fromString(char repr[22]) {
 }
 
 void EncodedState::print(SerialCommunicator & comm) {
-	comm.write("{\n\tid=", 6);
-	comm.write(id(), SerialCommunicator::FMTHEX);
-	comm.write("\n\triddle=", 9);
-	comm.write(riddle());
-	comm.write("\n\tfaults=", 9);
-	comm.write(faults());
+	comm.write("{", 1);
+	comm.write("\n\tid = 0x", 8); comm.write(id(), SerialCommunicator::FMTHEX);
+	comm.write("\n\tdirection = ", 16); comm.write(direction());
+	comm.write("\n\triddle = ", 11); comm.write(riddle());
+	comm.write("\n\triddleparams = 0x", 19); comm.write(riddleparams(), SerialCommunicator::FMTHEX);
+	comm.write("\n\tfaults = ", 11); comm.write(faults());
+	comm.write("\n\tfinalsuccess = ", 17); comm.write(finalsuccess());
+	comm.write("\n\tsentence = ", 13); comm.write(sentence());
+	comm.write("\n\tanimation = ", 14); comm.write(animation());
+	comm.write("\n\tanimparams = 0x", 17); comm.write(animparams(), SerialCommunicator::FMTHEX);
+	comm.write("\n\tchecksum = 0x", 15); comm.write(checksum(), SerialCommunicator::FMTHEX);
 	comm.write("\n}\n", 3);
 }
