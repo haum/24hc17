@@ -17,26 +17,8 @@ namespace anim
 		void play(void* p)
 		{
 			auto d = static_cast<Data*>(p);
-
-			if ((d->d1).divider == (d->d1).wait)
-			{
-				(d->d1).divider = 0;
-				send_sign(&(d->d1));
-			}
-			else
-			{
-				(d->d1).divider++;
-			}
-
-			if ((d->d2).divider == (d->d2).wait)
-			{
-				(d->d2).divider = 0;
-				send_sign(&(d->d2));
-			}
-			else
-			{
-				(d->d2).divider++;
-			}
+			anim::Morse::play(&(d->d1));
+			anim::Morse::play(&(d->d2));
 		}
 
 	}
