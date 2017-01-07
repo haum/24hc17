@@ -9,9 +9,9 @@ namespace anim
 
 		struct Data
 		{
-			anim::HorizontalChase::Data bottom;
-			anim::HorizontalChase::Data middle;
-			anim::HorizontalChase::Data top;
+			anim::ProgressiveHorizontalChase::Data bottom;
+			anim::ProgressiveHorizontalChase::Data middle;
+			anim::ProgressiveHorizontalChase::Data top;
 			bool unlocked;
 		};
 

@@ -3,7 +3,7 @@
 
 namespace anim {
 	
-	namespace ProressiveLockChase {
+	namespace ProgressiveLockChase {
 
 		void init_data(void * p, int bottomWait, int bottomDir, int middleWait, int middleDir, int topWait, int topDir)
 		{
