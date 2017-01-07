@@ -42,7 +42,7 @@ namespace anim {
 					}
 					else
 					{
-						d->step = 0;
+						d->step = 6;
 						d->dir = 1;
 					}
 				}
