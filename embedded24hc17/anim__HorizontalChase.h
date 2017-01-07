@@ -13,7 +13,7 @@ namespace anim
 			int divider;
 			int wait;
 			int step;
-			int ring[4];
+			const int* ring;
 			int dir;
 			int color;
 		};

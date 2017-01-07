@@ -18,13 +18,13 @@ namespace anim {
 			switch(ring)
 			{
 				case 0:
-					*(d->ring) = *BottomRing;
+					d->ring = BottomRing;
 					break;
 				case 1:
-					*(d->ring) = *MiddleRing;
+					d->ring = MiddleRing;
 					break;
 				case 2:
-					*(d->ring) = *TopRing;
+					d->ring = TopRing;
 					break;
 			}
 			d->color = color.b | (color.g << 8) | (color.r << 16);
