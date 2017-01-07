@@ -21,6 +21,10 @@ namespace anim
 		void init_data(void * data, int ring = 1, int dir = 0, int wait = 20, CRGB color = CRGB::Red);
 		
 		void play(void * data);
+
+		void increase_wait(void* p);
+		void decrease_wait(void* p);
+		void inverse_dir(void* p);
 	}
 
 }

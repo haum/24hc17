@@ -70,6 +70,32 @@ namespace anim {
 			}
 		}
 
+
+		void increase_wait(void* p)
+		{
+			auto d = static_cast<Data*>(p);
+			d->wait += 5;
+		}
+
+		void decrease_wait(void* p)
+		{
+			auto d = static_cast<Data*>(p);
+			if (d->wait>9)
+			{
+				d->wait -= 5;
+			}
+			else
+			{
+				d->wait = 5;
+			}
+		}
+
+		void inverse_dir(void* p)
+		{
+			auto d = static_cast<Data*>(p);
+			d->dir = 1 - d->dir;
+		}
+
 	}
 
 }

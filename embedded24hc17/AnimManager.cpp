@@ -20,6 +20,8 @@
 #include "anim__LightStorm.h"
 #include "anim__HorizontalChase.h"
 #include "anim__VerticalChase.h"
+#include "anim__LockChase.h"
+
 
 namespace {
 	union {
@@ -43,6 +45,7 @@ namespace {
 		anim::LightStorm::Data a17;
 		anim::HorizontalChase::Data a18;
 		anim::VerticalChase::Data a19;
+		anim::LockChase::Data a20;
 	} anim_data;
 }
 
@@ -115,6 +118,10 @@ void AnimManager::set(int anim) {
 		case 51:
 			anim::Fiesta::init_data(&anim_data, 4, 1);
 			play_ptr = &anim::Fiesta::play;
+			break;
+		case 52:
+			anim::LockChase::init_data(&anim_data, 10, 0, 5, 0, 5, 1);
+			play_ptr = &anim::LockChase::play;
 			break;
 		default:
 			anim::Breathing::init_data(&anim_data);
