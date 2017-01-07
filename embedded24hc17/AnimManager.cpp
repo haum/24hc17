@@ -18,6 +18,7 @@
 #include "anim__Hangman.h"
 #include "anim__Storm.h"
 #include "anim__LightStorm.h"
+#include "anim__HorizontalChase.h"
 
 namespace {
 	union {
@@ -39,6 +40,7 @@ namespace {
 		anim::Hangman::Data a15;
 		anim::Storm::Data a16;
 		anim::LightStorm::Data a17;
+		anim::HorizontalChase::Data a18;
 	} anim_data;
 }
 
@@ -99,6 +101,10 @@ void AnimManager::set(int anim) {
 		case 48:
 			anim::LightStorm::init_data(&anim_data);
 			play_ptr = &anim::LightStorm::play;
+			break;
+		case 49:
+			anim::HorizontalChase::init_data(&anim_data, 1);
+			play_ptr = &anim::HorizontalChase::play;
 			break;
 		case 51:
 			anim::Fiesta::init_data(&anim_data, 4, 1);
