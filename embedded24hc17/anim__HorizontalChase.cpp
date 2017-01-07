@@ -4,11 +4,11 @@ namespace anim {
 	
 	namespace HorizontalChase {
 
-		const constexpr int BottomRing[4] = {9, 2, 8, 3};
-		const constexpr int MiddleRing[4] = {10, 1, 7, 4};
-		const constexpr int TopRing[4] = {0, 6, 5, 12};
+		const constexpr int BottomRing[4] = {0, 6, 5, 12};
+		const constexpr int MiddleRing[4] = {1, 7, 4, 11};
+		const constexpr int TopRing[4] = {2, 8, 3, 10};
 
-		void init_data(void* p, int ring, int dir, int wait)
+		void init_data(void* p, int ring, int dir, int wait, CRGB color)
 		{
 			auto d = static_cast<Data*>(p);
 			d->divider = 0;
@@ -27,6 +27,7 @@ namespace anim {
 					*(d->ring) = *TopRing;
 					break;
 			}
+			d->color = color.b | (color.g << 8) | (color.r << 16);
 			AnimManager::clear();
 		}
 
@@ -61,7 +62,7 @@ namespace anim {
 						d->step = 3;
 					}					
 				}
-				AnimManager::setLed(d->ring[d->step], CRGB::Red);
+				AnimManager::setLed(d->ring[d->step], d->color);
 			}
 			else
 			{
