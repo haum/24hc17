@@ -10,12 +10,9 @@ namespace anim {
 
 		void init_data(void* p, int ring, int dir, int wait, CRGB color)
 		{
-			Serial.printf("wait=%d\n", wait);
 			auto d = static_cast<Data*>(p);
 			d->divider = 0;
 			d->wait = wait;
-			Serial.printf("wait=%d\n", d->wait);
-			Serial.print(d->wait);
 			d->step = 0;
 			d->dir = dir;
 			switch(ring)
@@ -35,7 +32,7 @@ namespace anim {
 				t = 0;
 			}
 			d->done = false;
-			d->dt = 255 / (2 * wait);
+			d->dt = 3 * 255 / (8 * wait);
 			if (d->dt == 0)
 			{
 				d->dt = 1;
@@ -49,13 +46,6 @@ namespace anim {
 		void play(void* p)
 		{
 			auto d = static_cast<Data*>(p);
-
-			// Serial.print(d->wait);
-			// Serial.print(" : ");
-			// Serial.print(d->divider);
-			// Serial.print(" : ");
-			// Serial.print(d->step);
-			// Serial.print(" : ");
 
 			if(not d->done)
 			{
@@ -75,12 +65,7 @@ namespace anim {
 				}
 				uint8_t scaler = sin8(d->times[i] - 64);
 				AnimManager::setLed(d->ring[i], CRGB(scale8(d->r, scaler), scale8(d->g, scaler), scale8(d->b, scaler)));
-				// Serial.print(d->times[i]);
-				// Serial.print("->");
-				// Serial.print(scaler);
-				// Serial.print(" ");
 			}
-			//Serial.print("\n");
 
 			if (d->divider == d->wait)
 			{

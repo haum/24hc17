@@ -25,7 +25,7 @@
 #include "anim__ScrollDown.h"
 #include "anim__ProgressiveVerticalChase.h"
 #include "anim__ProgressiveHorizontalChase.h"
-//#include "anim__ProgressiveLockChase.h"
+#include "anim__ProgressiveLockChase.h"
 
 
 namespace {
@@ -53,7 +53,7 @@ namespace {
 		anim::LockChase::Data a20;
 		anim::ProgressiveVerticalChase::Data a21;
 		anim::ProgressiveHorizontalChase::Data a22;
-		//anim::ProgressiveLockChase::Data a23;
+		anim::ProgressiveLockChase::Data a23;
 	} anim_data;
 }
 
@@ -139,10 +139,10 @@ void AnimManager::set(int anim) {
 			anim::ProgressiveVerticalChase::init_data(&anim_data, 0, 20, CRGB::Orange);
 			play_ptr = &anim::ProgressiveVerticalChase::play;
 			break;
-		/*case 55:
-			anim::ProgressiveLockChase::init_data(&anim_data, 100, 0, 50, 0, 50, 1);
+		case 55:
+			anim::ProgressiveLockChase::init_data(&anim_data, 92, 0, 67, 0, 62, 1);
 			play_ptr = &anim::ProgressiveLockChase::play;
-			break;*/
+			break;
 		default:
 			anim::Breathing::init_data(&anim_data);
 			play_ptr = &anim::Breathing::play;

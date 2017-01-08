@@ -8,9 +8,9 @@ namespace anim {
 		void init_data(void * p, int bottomWait, int bottomDir, int middleWait, int middleDir, int topWait, int topDir)
 		{
 			auto d = static_cast<Data*>(p);
-			anim::ProgressiveHorizontalChase::init_data(&(d->bottom), 0, bottomDir, bottomWait);
-			anim::ProgressiveHorizontalChase::init_data(&(d->middle), 1, middleDir, middleWait);
-			anim::ProgressiveHorizontalChase::init_data(&(d->top), 2, topDir, topWait);
+			anim::ProgressiveHorizontalChase::init_data(&(d->bottom), 0, bottomDir, bottomWait, CRGB::Red);
+			anim::ProgressiveHorizontalChase::init_data(&(d->middle), 1, middleDir, middleWait, CRGB::Orange);
+			anim::ProgressiveHorizontalChase::init_data(&(d->top), 2, topDir, topWait, CRGB::Yellow);
 			(d->bottom).step = random(0, 3);
 			(d->middle).step = random(0, 3);
 			(d->top).step = random(0, 3);
