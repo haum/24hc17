@@ -132,7 +132,7 @@ void AnimManager::set(int anim) {
 			play_ptr = &anim::LockChase::play;
 			break;
 		case 53:
-			anim::ProgressiveHorizontalChase::init_data(&anim_data, 1, 20, CRGB::Orange);
+			anim::ProgressiveHorizontalChase::init_data(&anim_data, 1, 0, 20, CRGB::Orange);
 			play_ptr = &anim::ProgressiveHorizontalChase::play;
 			break;
 		case 54:
