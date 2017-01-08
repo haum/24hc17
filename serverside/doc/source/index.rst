@@ -11,3 +11,4 @@ Urbs -- Hosting Nero and All his friends
    :caption: Contents:
 
    DjangoFrontend
+   LaumioAnimation
