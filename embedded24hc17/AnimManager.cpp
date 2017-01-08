@@ -26,6 +26,7 @@
 #include "anim__ProgressiveVerticalChase.h"
 #include "anim__ProgressiveHorizontalChase.h"
 #include "anim__ProgressiveLockChase.h"
+#include "anim__ScrollUp_Fire.h"
 
 
 namespace {
