@@ -1,7 +1,7 @@
 #include "AnimManager.h"
 
 #ifndef ANIM__PROGRESSIVE_HORIZONTAL_CHASE__H
-#define ANIM__POGRESSIVE_HORIZONTAL_CHASE__H
+#define ANIM__PROGRESSIVE_HORIZONTAL_CHASE__H
 
 namespace anim
 {
