@@ -108,7 +108,7 @@ void AnimManager::set(int anim) {
 			play_ptr = &anim::Hangman::play;
 			break;
 		case 47:
-			anim::Storm::init_data(&anim_data);
+			anim::Storm::init_data(&anim_data, 7, 3, 100);
 			play_ptr = &anim::Storm::play;
 			break;
 		case 48:

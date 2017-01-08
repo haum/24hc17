@@ -8,7 +8,7 @@ namespace anim
 	namespace Storm
 	{
 
-		void init_data(void* p, int wait, int loopSteps)
+		void init_data(void* p, int wait, int loopSteps, int maxPause, CRGB backColor)
 		{
 			auto d = static_cast<Data*>(p);
 			d->divider = 0;
@@ -19,7 +19,18 @@ namespace anim
 			}
 			d->step = 0;
 			d->wait = wait;
-			AnimManager::clear();
+			if (maxPause==0)
+			{
+				d->maxPause = wait;
+			}
+			else
+			{
+				d->maxPause = maxPause;
+			}
+			d->pause = wait;
+			d->onPause = false;
+			d->backColor = backColor.b | (backColor.g << 8) | (backColor.r << 16);
+			AnimManager::setAllLeds(backColor);
 		}
 
 		void play(void* p)
@@ -27,11 +38,11 @@ namespace anim
 			auto d = static_cast<Data*>(p);
 			int led_roll;
 
-			if (d->divider == d->wait)
+			if (d->divider == d->wait and not d->onPause)
 			{
 				if (d->step == 0)
 				{
-					AnimManager::clear();
+					AnimManager::setAllLeds(d->backColor);
 					for(int i = 0; i<d->loopSteps; i++)
 					{
 						d->leds[i] = random(0,12);
@@ -49,20 +60,27 @@ namespace anim
 					}
 					else
 					{
-						AnimManager::clear();
+						AnimManager::setAllLeds(d->backColor);
 					}
 
-					if (d->step==5)
+					if (d->step==9)
 					{
 						d->step = 0;
+						d->onPause = true;
+						d->pause = random(d->wait, d->maxPause);
+						AnimManager::setAllLeds(d->backColor);
 					}
 					else
 					{
 						d->step++;
 					}	
 				}
+				d->divider = 0;	
+			}
+			else if (d->divider == d->pause and d->onPause)
+			{
 				d->divider = 0;
-								
+				d->onPause = false;
 			}
 			else
 			{
