@@ -149,7 +149,7 @@ void AnimManager::set(int anim) {
 		case 56:
 			{
 				int tab[3] = {3, 7, 8};
-				anim::Gray::init_data(&anim_data, tab, 3);
+				anim::Gray::init_data(&anim_data, tab, 0, 100, CRGB::Red, CRGB::Orange);
 				play_ptr = &anim::Gray::play;
 			}
 			break;
