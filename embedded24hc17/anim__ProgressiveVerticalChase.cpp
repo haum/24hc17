@@ -49,7 +49,7 @@ namespace anim {
 				d->done = true;
 			}
 			
-			for(int i; i<7; i++)
+			for(int i=0; i<7; i++)
 			{
 				if(d->times[i] < d->dt)
 				{
