@@ -8,9 +8,10 @@ namespace SimpleFromStorage {
 	void init_data(void * data, const char * const name) {
 		Data * d = static_cast <Data*> (data);
 		size_t n = strlen(name);
-		if (n > sizeof(d->name))
-			n = sizeof(d->name);
+		if (n > sizeof(d->name)-1)
+			n = sizeof(d->name)-1;
 		memcpy(d->name, name, n);
+		d->name[n] = 0;
 		d->name[sizeof(d->name)-1] = 0;
 	}
 
@@ -39,21 +40,44 @@ namespace SimpleFromStorage {
 		info.comm.dump_file(file);
 
 		// Check answer
-		char ans[255];
 		info.comm.write("\nAnswer: ", 9);
-		int len = info.comm.read(ans, sizeof(ans));
 		snprintf(file, sizeof(file), "/%s/answer%d", d->name, choice);
-		int fault = 1;
-		char goodans[255];
+		int fault = 0;
+		char ans_line[255];
+		char goodans_line[255];
+		char goodans_buffer[255];
+		int goodans_buffer_len = 0;
 		File f = SPIFFS.open(file, "r");
-		if (f) {
-			int r = f.readBytes(goodans, sizeof(goodans));
-			if (goodans[r-1] == '\n')
-				r -= 1;
-			if (!strncmp(ans, goodans, r))
-				fault = 0;
-		}
+		bool run = true;
+		if (f) while (run) {
+			int ans_line_len = info.comm.read(ans_line, sizeof(ans_line));
+			int len = f.readBytes(&goodans_buffer[goodans_buffer_len], sizeof(goodans_buffer) - goodans_buffer_len);
+			if (len < 0)
+				run = false;
+			else
+				goodans_buffer_len += len;
+			int goodans_line_len = 0;
+			while (goodans_line_len < goodans_buffer_len) {
+				char r = goodans_buffer[goodans_line_len];
+				if (r != '\n') {
+					goodans_line[goodans_line_len] = r;
+					goodans_line_len++;
+				} else {
+					break;
+				}
+			}
+			goodans_buffer_len -= goodans_line_len + 1;
+			memcpy(goodans_buffer, &goodans_buffer[goodans_line_len + 1], goodans_buffer_len);
 
+			if (ans_line_len != goodans_line_len) {
+				fault = 1;
+				run = false;
+			} else if (goodans_buffer_len == 0) {
+				run = false;
+			} else if (strncmp(ans_line, goodans_line, ans_line_len)) {
+				fault = 1;
+			}
+		}
 
 		// Write token
 		EncodedState newstate;
