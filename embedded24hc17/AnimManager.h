@@ -53,6 +53,9 @@ class AnimManager {
 
 		/** Leds **/
 		static CRGB leds[nb_leds];
+
+		/** Target of next wait in ms **/
+		static long targetms;
 };
 
 #endif // ANIMMANAGER_H

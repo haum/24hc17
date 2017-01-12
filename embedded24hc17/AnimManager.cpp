@@ -60,6 +60,8 @@ namespace {
 	} anim_data;
 }
 
+long AnimManager::targetms = 0;
+
 CRGB AnimManager::leds[nb_leds];
 
 void (*AnimManager::play_ptr)(void*) = &anim::Breathing::play;
@@ -210,7 +212,10 @@ void AnimManager::clear() {
 }
 
 void AnimManager::animate() {
-	delay(10);
-	play();
-	FastLED.show();
+	long ms = millis();
+	if (ms > targetms) {
+		targetms = ms + 10;
+		play();
+		FastLED.show();
+	}
 }
