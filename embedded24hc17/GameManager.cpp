@@ -32,6 +32,10 @@ void GameManager::set(int riddle) {
 			game::SimpleFromStorage::init_data(&game_data, "TinyOverflow");
 			play_ptr = &game::SimpleFromStorage::play;
 			break;
+		case 5:
+			game::SimpleFromStorage::init_data(&game_data, "RomanProblems");
+			play_ptr = &game::SimpleFromStorage::play;
+			break;
 		default:
 			game::Welcome::init_data(&game_data);
 			play_ptr = &game::Welcome::play;
