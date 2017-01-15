@@ -40,6 +40,10 @@ void GameManager::set(int riddle) {
 			game::LostInMaze::init_data(&game_data);
 			play_ptr = &game::LostInMaze::play;
 			break;
+		case 7:
+			game::SimpleFromStorage::init_data(&game_data, "TokenByPairs");
+			play_ptr = &game::SimpleFromStorage::play;
+			break;
 		default:
 			game::Welcome::init_data(&game_data);
 			play_ptr = &game::Welcome::play;
