@@ -11,12 +11,50 @@ class EncodedState:
         self.token = ''
         self.D = D
 
+    def __getitem__(self, k):
+        return self.D.__getitem__(k)
+
+    def __setitem__(self, k, v):
+        if k=='id' and type(v)==str:
+            v = int('0x'+v, 16)
+        return self.D.__setitem__(k, v)
+
+    def to_b64(self, nb):
+        if nb < 26: return chr(nb+ord('A'))
+        nb -= 26
+        if nb < 26: return chr(nb+ord('a'))
+        nb -= 26
+        if nb < 10: return chr(nb+ord('0'))
+        nb -= 10
+        if nb == 0: return '+'
+        if nb == 1: return '/'
+        return '='
+
+    def from_b64(self, char):
+        c = ord(char)
+        if char == '+': return 62
+        if char == '/': return 63
+        c -= ord('0')
+        if c < 10: return 52 + c
+        c -= ord('A') - ord('0')
+        if c < 26: return c
+        c -= ord('a')-ord('A')
+        return c + 26
+
+    def compute_checksum(self):
+        return 0
+
+    def is_valid(self):
+        if self.compute_checksum()!=self.D['checksum']:
+            return False
+        else:
+            return True
+
     def from_string(self, rep):
         if not re.match(r"^[\w\d+/]{22}$", rep):
             return False
 
-        e_s1 = 0
-        e_s2 = 0
+        e_s1, e_s2 = 0, 0
         for ii in range(10):
             e_s1 += self.from_b64(rep[21-2*ii-1])
             e_s1 = (e_s1*2**6)%(2**64)
@@ -59,48 +97,8 @@ class EncodedState:
     def to_string(self):
         return str(self)
 
-    def is_valid(self):
-        if self.compute_checksum()!=self.D['checksum']:
-            return False
-        else:
-            return True
-
-    def compute_checksum(self):
-        return 0
-
-    def to_b64(self, nb):
-        if nb < 26: return chr(nb+ord('A'))
-        nb -= 26
-        if nb < 26: return chr(nb+ord('a'))
-        nb -= 26
-        if nb < 10: return chr(nb+ord('0'))
-        nb -= 10
-        if nb == 0: return '+'
-        if nb == 1: return '/'
-        return '='
-
-    def from_b64(self, char):
-        c = ord(char)
-        if c == '+': return 62
-        if c == '/': return 63
-        c -= ord('0')
-        if c < 10: return 52 + c
-        c -= ord('A') - ord('0')
-        if c < 26: return c
-        c -= ord('a')-ord('A')
-        return c + 26
-
-    def print_var(self):
-        print('{')
-        for k, v in self.D.items():
-            print('%s = %s'%(k, v))
-        print('s1 = 0x%x'%(self.state1,))
-        print('s2 = 0x%x'%(self.state2,))
-        print('}')
-
     def __str__(self):
-        s1 = 0
-        s2 = 0
+        s1, s2 = 0, 0
 
         try:
             if type(self.D['id'])==str:
@@ -127,9 +125,6 @@ class EncodedState:
         e_s1 *= self.__magic1
         e_s2 *= self.__magic2
 
-        self.state1 = s1
-        self.state2 = s2
-
         rep = []
         for ii in range(11):
             nb = e_s1 & ((1 << 6) - 1)
@@ -140,11 +135,9 @@ class EncodedState:
             e_s2 >>= 6
         return ''.join(rep)
 
-    def __getitem__(self, k):
-        return self.D.__getitem__(k)
-
-    def __setitem__(self, k, v):
-        if k=='id' and type(v)==str:
-            v = int('0x'+v, 16)
-        return self.D.__setitem__(k, v)
+    def _print_var(self):
+        print('{')
+        for k, v in self.D.items():
+            print('%s = %s'%(k, v))
+        print('}')
 
