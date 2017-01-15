@@ -4,6 +4,7 @@
 #include "game__AveCaesar.h"
 #include "game__SimpleFromStorage.h"
 #include "game__LostInMaze.h"
+#include "game__Nothing.h"
 
 namespace {
 	union {
@@ -43,6 +44,10 @@ void GameManager::set(int riddle) {
 		case 7:
 			game::SimpleFromStorage::init_data(&game_data, "TokenByPairs");
 			play_ptr = &game::SimpleFromStorage::play;
+			break;
+		case 8:
+			game::Nothing::init_data(&game_data);
+			play_ptr = &game::Nothing::play;
 			break;
 		default:
 			game::Welcome::init_data(&game_data);
