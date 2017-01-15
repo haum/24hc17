@@ -27,13 +27,13 @@ class EncodedState:
         if nb < 10: return chr(nb+ord('0'))
         nb -= 10
         if nb == 0: return '+'
-        if nb == 1: return '/'
+        if nb == 1: return '*'
         return '='
 
     def from_b64(self, char):
         c = ord(char)
         if char == '+': return 62
-        if char == '/': return 63
+        if char == '*': return 63
         c -= ord('0')
         if c < 10: return 52 + c
         c -= ord('A') - ord('0')
@@ -51,7 +51,7 @@ class EncodedState:
             return True
 
     def from_string(self, rep):
-        if not re.match(r"^[\w\d+/]{22}$", rep):
+        if not re.match(r"^[\w\d+*]{22}$", rep):
             return False
 
         e_s1, e_s2 = 0, 0
