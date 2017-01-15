@@ -1,0 +1,11 @@
+from random import choice
+
+animals = ['aardvark', 'albatross', 'alligator', 'alpaca', 'ant', 'anteater', 'antelope', 'ape', 'armadillo', 'baboon', 'badger', 'barracuda', 'bat', 'bear ', 'beaver', 'bee', 'bird', 'bison', 'boar', 'buffalo', 'butterfly', 'camel', 'caribou', 'cassowary', 'cat', 'caterpillar', 'cattle', 'chamois', 'cheetah', 'chicken', 'chimpanzee', 'chinchilla', 'chough', 'coati', 'cobra', 'cockroach', 'cod', 'cormorant', 'coyote', 'crab', 'crane', 'crocodile', 'crow', 'curlew', 'deer', 'dinosaur', 'dog', 'dogfish', 'dolphin', 'donkey', 'dotterel', 'dove', 'dragonfly', 'duck', 'dugong', 'dunlin', 'eagle', 'echidna', 'eel', 'eland', 'elephant', 'elk', 'emu', 'falcon', 'ferret', 'finch', 'fish', 'flamingo', 'fly', 'fox', 'frog', 'gaur', 'gazelle', 'gerbil', 'giraffe', 'gnat', 'gnu', 'goat', 'goldfinch', 'goosander', 'goose', 'gorilla', 'goshawk', 'grasshopper', 'grouse', 'guanaco', 'gull', 'hamster', 'hare', 'hawk', 'hedgehog', 'heron', 'herring', 'hippopotamus', 'hornet', 'horse', 'hummingbird', 'hyena', 'ibex', 'ibis', 'jackal', 'jaguar', 'jay', 'jellyfish', 'kangaroo', 'kinkajou', 'koala', 'kouprey', 'kudu', 'lapwing', 'lark', 'lemur', 'leopard', 'lion', 'llama', 'lobster', 'locust', 'loris', 'louse', 'lyrebird', 'magpie', 'mallard', 'mammoth', 'manatee', 'mandrill', 'mink', 'mole', 'mongoose', 'monkey', 'moose', 'mouse', 'mosquito', 'narwhal', 'newt', 'nightingale', 'octopus', 'okapi', 'opossum', 'ostrich', 'otter', 'owl', 'oyster', 'panther', 'parrot', 'panda', 'partridge', 'peafowl', 'pelican', 'penguin', 'pheasant', 'pig', 'pigeon', 'pony', 'porcupine', 'porpoise', 'quail', 'quelea', 'quetzal', 'rabbit', 'raccoon', 'ram', 'rat', 'raven', 'reindeer', 'rhinoceros', 'rook', 'salamander', 'salmon', 'sandpiper', 'sardine', 'seahorse', 'seal', 'shark', 'sheep', 'shrew', 'skunk', 'sloth', 'snail', 'snake', 'spider', 'squirrel', 'starling', 'stegosaurus', 'swan', 'tapir', 'tarsier', 'termite', 'tiger', 'toad', 'turkey', 'turtle', 'wallaby', 'walrus', 'wasp', 'weasel', 'whale', 'wolf', 'wolverine', 'wombat', 'wren', 'yak', 'zebra']
+
+choices = set((choice(animals) for i in range(80)))
+choices.add('manatee')
+choices.add('chimpanzee')
+
+for a in sorted(choices):
+    print(a)
+
