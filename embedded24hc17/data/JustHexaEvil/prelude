@@ -1,0 +1,4 @@
+Please translate what is inside quotes into hexadecimal notation (using ASCII
+table, two digit with uppercase letters)
+e.g. This is "a" sentence with some "quoted" text => 6171756F746564
+

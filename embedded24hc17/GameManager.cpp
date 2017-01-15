@@ -61,6 +61,14 @@ void GameManager::set(int riddle) {
 			game::SimpleFromStorage::init_data(&game_data, "DesreverSort");
 			play_ptr = &game::SimpleFromStorage::play;
 			break;
+		case 12:
+			game::SimpleFromStorage::init_data(&game_data, "JustHexa");
+			play_ptr = &game::SimpleFromStorage::play;
+			break;
+		case 13:
+			game::SimpleFromStorage::init_data(&game_data, "JustHexaEvil");
+			play_ptr = &game::SimpleFromStorage::play;
+			break;
 		default:
 			game::Welcome::init_data(&game_data);
 			play_ptr = &game::Welcome::play;
