@@ -3,6 +3,7 @@
 #include "game__Welcome.h"
 #include "game__AveCaesar.h"
 #include "game__SimpleFromStorage.h"
+#include "game__LostInMaze.h"
 
 namespace {
 	union {
@@ -35,6 +36,9 @@ void GameManager::set(int riddle) {
 		case 5:
 			game::SimpleFromStorage::init_data(&game_data, "RomanProblems");
 			play_ptr = &game::SimpleFromStorage::play;
+		case 6:
+			game::LostInMaze::init_data(&game_data);
+			play_ptr = &game::LostInMaze::play;
 			break;
 		default:
 			game::Welcome::init_data(&game_data);

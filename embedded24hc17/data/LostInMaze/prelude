@@ -1,0 +1,26 @@
+A robot is lost in a radioactive complex.
+It undestands cardinal directions: n (for noth), s (for south), e (for east) and w (for west)
+When it would hit a wall it stays in place, silently.
+Also, when it is out of the complex, it cannot enter again.
+
+Here is a plan of the complex:
+
+##################
+#             #  #
+#  #######  # #  #
+#  #     ## #         <= exit
+#  # ###    # #  #
+#  ### ###### #  #
+#             #  #
+#  ### #### # #  #
+#  # # #  # # #  #
+#  # # ## ### #  #
+#                #
+############### ##
+#     #          #
+#          #     #
+##################
+
+There are a lot of ways to go.
+Although you have no feedback, help it to escape.
+
