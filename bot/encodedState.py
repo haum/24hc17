@@ -13,7 +13,7 @@ class EncodedState:
         self.animation = 0
 
     def from_string(self, rep):
-        if not re.match(r"^[\w\d+/]{22}$", rep):
+        if not re.match(r"^[\w\d+*]{22}$", rep):
             return False
 
         s1,s2 = 0,0
@@ -72,13 +72,13 @@ class EncodedState:
         if nb < 10: return chr(nb+ord('0'))
         nb -= 10
         if nb == 0: return '+'
-        if nb == 1: return '/'
+        if nb == 1: return '*'
         return '='
 
     def from_b64(self, char):
         c = ord(char)
         if c == '+': return 62
-        if c == '/': return 63
+        if c == '*': return 63
         c -= ord('0')
         if c < 10: return 52 + c
         c -= ord('A') - ord('0')

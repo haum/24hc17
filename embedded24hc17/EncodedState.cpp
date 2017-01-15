@@ -17,7 +17,7 @@ void EncodedState::toString(char repr[22]) {
 		if (nb < 26) return nb+'a'; nb -= 26;
 		if (nb < 10) return nb+'0'; nb -= 10;
 		if (nb == 0) return '+';
-		if (nb == 1) return '/';
+		if (nb == 1) return '*';
 		return '=';
 	};
 
@@ -38,14 +38,14 @@ bool EncodedState::fromString(char repr[22]) {
 		if (!((repr[i] >= 'a' && repr[i] <= 'z') ||
 		      (repr[i] >= 'A' && repr[i] <= 'Z') ||
 		      (repr[i] >= '0' && repr[i] <= '9') ||
-		      repr[i] == '/' || repr[i] == '+'))
+		      repr[i] == '*' || repr[i] == '+'))
 			return false;
 	}
 
 	// Hand-made un-base64-like
 	auto b64nb = [] (char c) -> uint32_t {
 		if (c == '+') return 62;
-		if (c == '/') return 63; c -= '0';
+		if (c == '*') return 63; c -= '0';
 		if (c < 10) return 52 + c; c -= 'A' - '0';
 		if (c < 26) return c; c -= 'a'-'A';
 		return c + 26;
