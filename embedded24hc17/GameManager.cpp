@@ -49,6 +49,14 @@ void GameManager::set(int riddle) {
 			game::Nothing::init_data(&game_data);
 			play_ptr = &game::Nothing::play;
 			break;
+		case 9:
+			game::SimpleFromStorage::init_data(&game_data, "ThreeBigs");
+			play_ptr = &game::SimpleFromStorage::play;
+			break;
+		case 10:
+			game::SimpleFromStorage::init_data(&game_data, "ThreeBigsEviler");
+			play_ptr = &game::SimpleFromStorage::play;
+			break;
 		default:
 			game::Welcome::init_data(&game_data);
 			play_ptr = &game::Welcome::play;
