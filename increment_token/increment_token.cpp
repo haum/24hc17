@@ -3,16 +3,20 @@
 #include <iostream>
 
 int main(int argc, char **argv) {
-	if (argc != 2) {
-		std::cerr << "usage: " << argv[0] << " <token>" << std::endl;
+	int inc = 1;
+
+	if (argc != 2 && argc != 3) {
+		std::cerr << "usage: " << argv[0] << " <token> [increment]" << std::endl;
 		return 1;
 	}
+	if (argc == 3)
+		inc = atoi(argv[2]);
 
 	SerialCommunicator comm;
 	EncodedState state;
 	state.fromString(argv[1]);
 	state.print(comm);
-	state.riddle() = state.riddle() + 1;
+	state.riddle() = state.riddle() + inc;
 	char token[22];
 	state.toString(token);
 	comm.write(token, sizeof(token));
