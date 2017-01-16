@@ -5,11 +5,14 @@ class ChecksumError(Exception):
 
 class EncodedState:
 
-    def __init__(self, D={}):
+    def __init__(self, D=None):
         self.__magic1 = 1457849334819822135
         self.__magic2 = 9401304444795304839
         self.token = ''
-        self.D = D
+        if D:
+            self.D = D
+        else:
+            self.D = dict()
 
     def __getitem__(self, k):
         return self.D.__getitem__(k)
@@ -71,9 +74,6 @@ class EncodedState:
         s2 = e_s2 - e_s1
         s1 = s2 ^ e_s1
 
-        self.state1 = s1
-        self.state2 = s2
-
         try:
             self.D['id'] = (s1 & 0xFFFF)
             self.D['riddleparams'] = (s1 >> 16) & 0xFFFFFFFF
@@ -90,7 +90,7 @@ class EncodedState:
             print('Error decoding token:\n%s'%(e,))
 
         if self.is_valid():
-            return self.D
+            return self
         else:
             raise ChecksumError
 
