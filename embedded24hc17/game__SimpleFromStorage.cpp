@@ -80,9 +80,10 @@ namespace SimpleFromStorage {
 		}
 
 		// Write token
-		EncodedState newstate;
+		EncodedState newstate = info.state;
 		newstate.faults() = fault;
-		newstate.riddle() = info.state.riddle() + 1;
+		newstate.finalsuccess() = 1;
+		newstate.direction() = 1;
 		char token[22];
 		newstate.toString(token);
 		info.comm.write("\nToken: ", 8);

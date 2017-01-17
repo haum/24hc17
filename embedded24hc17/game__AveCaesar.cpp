@@ -18,7 +18,9 @@ namespace AveCaesar {
 		if (len == 3 && ans[0] == 'a' && ans[1] == 'v' && ans[2] == 'e') {
 			EncodedState newstate;
 			newstate.faults() = d->faults;
-			newstate.riddle() = info.state.riddle() + 1;
+			newstate.riddle() = 0;
+			newstate.finalsuccess() = 1;
+			newstate.direction() = 1;
 			char token[22];
 			newstate.toString(token);
 			info.comm.write("\nAve! Here is the next message to Nero:\n", 40);
