@@ -253,7 +253,7 @@ def propose_token(request, username, token):
     if previous_attempts.count()!=0:
         previous_token = EncodedState().from_string(previous_attempts[0].token_out)
 
-        fields = ['riddle', 'id', 'riddleparams', 'sentence', 'animation', 'animparams']
+        fields = ['riddle', 'id', 'riddleparams', 'animation', 'animparams']
         modified_fields = [f for f in fields if previous_token.D.get(f)!=tokenstate.D.get(f)]
         if modified_fields:
             return forge_json_response({
