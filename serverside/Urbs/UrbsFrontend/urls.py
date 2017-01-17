@@ -31,9 +31,9 @@ urlpatterns = [
     url(r'^team/', include([
         url(r'all/?', get_all_teams, name='team#all'),
         url(r'(?P<teamname>[A-Za-z0-9\-_]+)/adduser/(?P<username>[A-Za-z0-9\-_]+)?', register_user, name='team#register_user'),
-        url(r'(?P<teamname>[A-Za-z0-9\-_]+)/members/?', get_team_members, name='team#members'),
-        url(r'(?P<teamname>[A-Za-z0-9\-_]+)/record/?', get_team_record, name='team#record'),
-        url(r'(?P<teamname>[A-Za-z0-9\-_]+)/?', get_team, name='team#get_team'),
+        url(r'(?P<teamid>[A-Za-z0-9\-_]+)/members/?', get_team_members, name='team#members'),
+        url(r'(?P<teamid>[A-Za-z0-9\-_]+)/record/?', get_team_record, name='team#record'),
+        url(r'(?P<teamid>[A-Za-z0-9\-_]+)/?', get_team, name='team#get_team'),
     ])),
-    url(r'^token/(?P<token>[a-zA-Z0-9\+=]+)/?', propose_token, name='propose_token')
+    url(r'^token/(?P<username>[A-Za-z0-9\-_]+)/(?P<token>[\w\d+*]{22})/?', propose_token, name='propose_token')
 ]
