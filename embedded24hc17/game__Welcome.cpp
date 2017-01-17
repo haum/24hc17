@@ -1,5 +1,6 @@
 #include "game__Welcome.h"
 #include "EncodedState.h"
+#include <Arduino.h>
 
 namespace game {
 namespace Welcome {
@@ -11,6 +12,7 @@ namespace Welcome {
 		newstate.faults() = 0;
 		newstate.finalsuccess() = 1;
 		newstate.direction() = 1;
+		newstate.sentence() = random(32);
 		char token[22];
 		newstate.toString(token);
 		info.comm.write(token, sizeof(token));

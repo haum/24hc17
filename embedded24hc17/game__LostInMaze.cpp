@@ -2,6 +2,7 @@
 #include "EncodedState.h"
 #include <cstring>
 #include <FS.h>
+#include <Arduino.h>
 
 namespace game {
 namespace LostInMaze {
@@ -141,6 +142,7 @@ namespace LostInMaze {
 		newstate.faults() = fault;
 		newstate.finalsuccess() = 1;
 		newstate.direction() = 1;
+		newstate.sentence() = random(32);
 		char token[22];
 		newstate.toString(token);
 		info.comm.write("\nToken: ", 8);
