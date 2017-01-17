@@ -15,11 +15,11 @@ def main():
     elif operation == 1:
         operator = '-'
         number3 = number1 - number2
-    if operation == 2:
+    elif operation == 2:
         operator = '*'
         number3 = number1 * number2
     elif operation == 3:
-        operator = '/'
+        operator = '//'
         number3 = number1 / number2
     else:
         operator = '%'
