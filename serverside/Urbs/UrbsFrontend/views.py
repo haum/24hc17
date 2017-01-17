@@ -107,11 +107,11 @@ def register_user(request, teamname, username):
         return forge_json_response(payload, code=500)
 
 
-def get_team(request, teamname):
+def get_team(request, teamid):
     """Returns a complete Team object (with associated primary users)"""
 
     try:
-        team = Team.objects.get(name=teamname)
+        team = Team.objects.get(laumio=teamid)
     except ObjectDoesNotExist:
         payload = {
             'status': 'unknown team',
@@ -128,12 +128,12 @@ def get_team(request, teamname):
     return forge_json_response(payload)
 
 
-def get_team_members(request, teamname):
-    """Returns a list of Team teamname's members"""
+def get_team_members(request, teamid):
+    """Returns a list of Team teamid's members"""
 
     payload = {'command': 'get_team_members'}
     try:
-        team = Team.objects.get(name=teamname)
+        team = Team.objects.get(laumio=teamid)
     except ObjectDoesNotExist:
         payload = {
             'status': 'unknown team',
