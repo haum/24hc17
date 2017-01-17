@@ -29,69 +29,51 @@ if (argument_test == 1):
 
 U0 = randint(-100,100)
 U1 = randint(-100,100)
-V0 = randint(-100,100)
-V1 = randint(-100,100)
 
 list_u = list()
-list_v = list()
-#stdout.write(str(list_V[0]))
 
 r = U1-U0
-v = V1-V0
-if (argument_test == 1):
-    answer.write("r: "+str(r)+" ")
-    answer.write("v: "+str(v)+"\n")
-if (argument_test == 1):
-    answer.close()
+#if (argument_test == 1):
+#    answer.write("r: "+str(r)+" ")
+#    answer.write("v: "+str(v)+"\n")
+#if (argument_test == 1):
+#    answer.close()
 
 UN = U0
 UN1 = UN+r
-stdout.write("r: "+str(r)+"\n")
+#stdout.write("r: "+str(r)+"\n")
 #if (argument_test == 1):
 #    enigma.write(str(UN1)+" ")
 
-VN = V0
-VN1 = VN+v
-stdout.write("v: "+str(v)+"\n")
-
 list_u.insert(0, UN1)
-stdout.write("Suite u: "+str(list_u[0])+" ")
+#stdout.write("Suite u: "+str(list_u[0])+" ")
 UN = UN1
 # On comment obligatoirement à partir de 1 ! Car U0 est déjà calculer au dessus
 for i in range(1,100):
     UN1 = UN+r
     list_u.insert(i, UN1)
-    stdout.write(str(list_u[i])+" ")
+    #stdout.write(str(list_u[i])+" ")
     #if (argument_test == 1):
     #    enigma.write(str(UN1)+" ")
     UN = UN1
 
-stdout.write("\n")
-
-list_v.insert(0, VN1)
-stdout.write("Suite v: "+str(list_v[0])+" ")
-VN = VN1
-for z in range(1,100):
-    VN1 = VN+v
-    list_v.insert(z, VN1)
-    stdout.write(str(list_v[z])+" ")
-    VN = VN1
-
-stdout.write("\n")
-
-stdout.write("Mix: ")
-
+stdout.write("Answer: ")
 for p in range(0,100):
-    if (p % 2 == 0):
-        stdout.write(str(list_v[p])+" ")
-        if (argument_test == 1):
-            enigma.write(str(list_v[p])+" ")
-    else:
-        stdout.write(str(list_u[p])+" ")
-        if (argument_test == 1):
-            enigma.write(str(list_u[p])+" ")
+    stdout.write(str(list_u[p])+" ")
 
-if (argument_test == 1):
-    enigma.write("\n")
-    enigma.close()
+false_value_rand = randint(0,99)
+stdout.write("\nEnigma: ")
+for z in range(0,100):
+    if (z == false_value_rand):
+        if (z == 0):
+            false_value_rand = -1
+        false_value = list_u[z]+false_value_rand
+        stdout.write(" "+str(false_value)+" ")
+    else:
+        stdout.write(str(list_u[z])+" ")
+
+
+#if (argument_test == 1):
+#    enigma.write("\n")
+#    enigma.close()
 stdout.write("\n")
