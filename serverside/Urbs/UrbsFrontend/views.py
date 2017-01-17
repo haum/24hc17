@@ -191,5 +191,148 @@ def get_all_teams(request):
     return HttpResponse(json.dumps(payload), content_type='application/json')
 
 
-def propose_token(request):
-    pass
+def propose_token(request, username, token):
+    """Get data out of the token, log it, process it."""
+
+    # if token checksum fails to pass, do not process
+    try:
+        tokenstate = EncodedState().from_string(token)
+        if not tokenstate:
+            return forge_json_response({
+                'status': 'invalid token',
+                'command': 'propose_token',
+                'result': [token]
+            })
+    except ChecksumError:
+        return forge_json_response({
+            'status': 'incorrect checksum',
+            'command': 'propose_token',
+            'result': []
+        })
+
+    if tokenstate['direction']!=0:
+        return forge_json_response({
+            'status': 'wrong direction',
+            'command': 'propose_token',
+            'result': []
+        })
+
+
+    submitter = Member.objects.get(pseudo=username)
+    team = submitter.team
+
+    # if username's team has no laumio field set, set the laumio id
+    # in team's record
+    if team.laumio=='':
+        team.laumio = '%04x'%(tokenstate['id'],)
+        team.save()
+    else:
+        if team.laumio!='%04x'%(tokenstate['id'],):
+            try:
+                token_team = Team.objects.get(laumio='%04x'%(tokenstate['id'],))
+            except ObjectDoesNotExist:
+                return forge_json_response({
+                    'status': 'submitter not part of team',
+                    'command': 'propose_token',
+                    'result': {
+                        'submitter_team': team.name,
+                        'token_team': None
+                    }
+                })
+            return forge_json_response({
+                'status': 'submitter not part of team',
+                'command': 'propose_token',
+                'result': {
+                    'submitter_team': team.name,
+                    'token_team': token_team.name
+                }
+            })
+
+
+    previous_attempts = Attempt.objects.filter(team=team).order_by('-timestamp')
+    if previous_attempts.count()!=0:
+        previous_token = EncodedState().from_string(previous_attempts[0].token_out)
+
+        fields = ['riddle', 'id', 'riddleparams', 'sentence', 'animation', 'animparams']
+        modified_fields = [f for f in fields if previous_token.D.get(f)!=tokenstate.D.get(f)]
+        if modified_fields:
+            return forge_json_response({
+                'status': 'illegal token',
+                'command': 'propose_token',
+                'result': {
+                    'modified_fields': modified_fields,
+                }
+            })
+    else: # Guard, you never know
+        team.step = Step.objects.get(index=0)
+        team.challenge = team.step.challenge
+        team.jail = False
+
+    attempt = Attempt(
+        step=team.step,
+        challenge=team.challenge,
+        jail=team.jail,
+        team=team,
+        submitter=submitter,
+        token_in=token,
+        token_out='',  # so we can save it
+        faults=tokenstate['faults'],
+    )
+    attempt.save()
+
+    if tokenstate['final_success']:
+        if team.jail:
+            attempt.points = 0
+            team.jail = False
+        else:
+            attempt.points = +2**team.step.index
+            try:
+                next_step = Step.objects.get(index=team.step.index+1)
+                team.step = next_step
+            except ObjectDoesNotExist:
+                return forge_json_response({
+                    'status': 'Habemus victorem',
+                    'command': 'propose_token',
+                    'result': '~o~'
+                })
+        team.challenge = team.step.challenge
+    else:
+        attempt.points = -team.step.index**2
+        if team.jail:
+            attempt.points *= 2
+        else:
+            team.jail = True
+
+        if team.step.jails.count()!=0:
+            team.challenge = team.step.jails.order_by('?')[0]
+        else:
+            team.challenge = team.step.challenge
+
+    token_out = EncodedState({
+        'id': team.laumio,
+        'riddleparams': team.challenge.params,
+        'faults': 0,
+        'animation': team.step.animation.index,
+        'sentence': 0,
+        'final_success': 0,
+        'direction': 1,
+        'riddle': team.challenge.index,
+        'animparams': team.step.animation.params
+    })
+    attempt.token_out = token_out
+    attempt.save()
+
+    team.score += attempt.points
+    team.save()
+
+    return forge_json_response({
+        'status': 'valid token',
+        'command': 'propose_token',
+        'result': {
+            'next': {
+                'token': str(token_out),
+                'next': team.challenge.name,
+                'type': 'jail' if team.jail else 'riddle'
+            }
+        }
+    })
