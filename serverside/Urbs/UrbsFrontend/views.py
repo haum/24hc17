@@ -91,7 +91,6 @@ def register_user(request, teamname, username):
             payload['status'] = 'failed to add team'
             return forge_json_response(payload, code=500)
 
-
     user.team = team
     try:
         user.save()
