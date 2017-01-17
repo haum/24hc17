@@ -3,7 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 import json
 
-from .models import Member, Team
+from .models import Member, Team, Step, Attempt
+from .encodedstate import EncodedState, ChecksumError
 
 
 def forge_json_response(payload, code=200):
@@ -152,8 +153,29 @@ def get_team_members(request, teamname):
     return forge_json_response(payload)
 
 
-def get_team_record(request, teamname):
-    pass
+def get_team_record(request, teamid):
+    """Get a full log of all actions from a team"""
+
+    payload = {'command': 'get_team_record'}
+    try:
+        team = Team.objects.get(laumio=teamid)
+    except ObjectDoesNotExist:
+        payload = {
+            'status': 'unknown team',
+            'command': 'get_team_record',
+            'result': []
+        }
+        return forge_json_response(payload, code=404)
+
+    record = team.attempt_set.order_by('-timestamp')
+    count = record.count()
+    if count:
+        payload['status'] = '%d event(s) found'%(count,)
+    else:
+        payload['status'] = 'no event found'
+
+    payload['result'] = [_.asdict() for _ in record]
+    return forge_json_response(payload)
 
 
 def get_all_teams(request):
