@@ -7,7 +7,7 @@ class Animation(M.Model):
     index -- index in the Laumio's table
     """
 
-    name = M.TextField(max_length=100)
+    name = M.CharField(max_length=100)
     index = M.IntegerField(default=0)
     params = M.IntegerField(default=0)
 
@@ -23,8 +23,8 @@ class Challenge(M.Model):
     index -- index of the challenge on the laumio
     """
 
-    name = M.TextField(max_length=200)
-    description = M.TextField(max_length=1000, blank=True, null=True)
+    name = M.CharField(max_length=200)
+    description = M.CharField(max_length=1000, blank=True, null=True)
     index = M.IntegerField(default=0)
     params = M.IntegerField(default=0)
     is_jail = M.BooleanField(default=False)
@@ -72,9 +72,9 @@ class Team(M.Model):
     score -- score
     """
 
-    name = M.TextField(max_length=200, unique=True)
-    location = M.TextField(max_length=200, default='')
-    laumio = M.TextField(max_length=4, default='')
+    name = M.CharField(max_length=200, unique=True)
+    location = M.CharField(max_length=200, default='')
+    laumio = M.CharField(max_length=4, default='')
     score = M.IntegerField(default=0)
     jail = M.BooleanField(default=False)
     step = M.ForeignKey(Step, null=True)
@@ -104,7 +104,7 @@ class Member(M.Model):
     team -- User's team
     """
 
-    pseudo = M.TextField(max_length=200, unique=True)
+    pseudo = M.CharField(max_length=200, unique=True)
     primary = M.BooleanField(default=True)
     mainentry = M.ForeignKey('Member', blank=True, null=True)
     team = M.ForeignKey('Team')
@@ -147,8 +147,8 @@ class Attempt(M.Model):
     success = M.BooleanField(default=False)
     team = M.ForeignKey(Team)
     submitter = M.ForeignKey(Member)
-    token_in = M.TextField(max_length=22)
-    token_out = M.TextField(max_length=22)
+    token_in = M.CharField(max_length=22)
+    token_out = M.CharField(max_length=22)
     faults = M.IntegerField(default=0)
     points = M.IntegerField(default=0)
 
@@ -183,7 +183,7 @@ class MessageType(M.Model):
     name --
     """
 
-    name = M.TextField(max_length=100)
+    name = M.CharField(max_length=100)
 
     def __str__(self):
         return self.name
@@ -196,7 +196,7 @@ class Message(M.Model):
     type -- type of message
     """
 
-    message = M.TextField(max_length=200)
+    message = M.CharField(max_length=200)
     index = M.IntegerField(default=0)
     type = M.ForeignKey('MessageType')
 
