@@ -69,6 +69,18 @@ void GameManager::set(int riddle) {
 			game::SimpleFromStorage::init_data(&game_data, "JustHexaEvil");
 			play_ptr = &game::SimpleFromStorage::play;
 			break;
+		case 14:
+			game::Difference::init_data(&game_data, "Difference");
+			play_ptr = &game::Difference::play;
+			break;
+		case 15:
+			game::DifferenceUnknown::init_data(&game_data, "DifferenceUnknown");
+			play_ptr = &game::DifferenceUnknown::play;
+			break;
+		case 16:
+			game::DifferenceEviler::init_data(&game_data, "DifferenceEviler");
+			play_ptr = &game::DifferenceEviler::play;
+			break;
 		default:
 			game::Welcome::init_data(&game_data);
 			play_ptr = &game::Welcome::play;
