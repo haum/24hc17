@@ -568,13 +568,13 @@ class ProposeTokenTests(TestCase):
             'animation': 0,
             'sentence': 0,
             'final_success': 0,
-            'direction': 0,
+            'direction': 1,
             'riddle': 1,
             'animparams': 0,
             'checksum': 0
         })
         t_in['id'] = self.t1.laumio
-        t_in['direction'] = 0
+        t_in['direction'] = 1
         t_in['final_succes'] = 1
         a.token_in = t_in
 
@@ -585,14 +585,14 @@ class ProposeTokenTests(TestCase):
             'animation': 0,
             'sentence': 0,
             'final_success': 0,
-            'direction': 0,
+            'direction': 1,
             'riddle': 1,
             'animparams': 0,
             'checksum': 0
         })
         t_out['id'] = self.t1.laumio
         t_out['riddle'] += 1
-        t_out['direction'] = 1
+        t_out['direction'] = 0
         a.token_out = t_out
         a.save()
 
@@ -604,13 +604,13 @@ class ProposeTokenTests(TestCase):
             'animation': 0,
             'sentence': 0,
             'final_success': 0,
-            'direction': 0,
+            'direction': 1,
             'riddle': 1,
             'animparams': 0,
             'checksum': 0
         })
         ft['id'] = self.t1.laumio
-        ft['direction'] = 0
+        ft['direction'] = 1
         ft['riddle'] += 2  # <= illegal modification of riddle ID
         response = self.client.get(reverse('propose_token', args=[self.t1u1.pseudo, str(ft)]))
         self.assertEqual(
@@ -628,7 +628,7 @@ class ProposeTokenTests(TestCase):
         """Token for team 1 submitted by a member of team B must be rejected"""
         t = self.basetoken
         t['id'] = self.t1.laumio
-        t['direction'] = 0
+        t['direction'] = 1
         t['final_succes'] = 1
         response = self.client.get(reverse('propose_token', args=[self.t2u1.pseudo, str(t)]))
         self.assertEqual(
@@ -647,7 +647,7 @@ class ProposeTokenTests(TestCase):
         """Any token with the wrong direction bit must be rejected"""
         t = self.basetoken
         t['id'] = self.t1.laumio
-        t['direction'] = 1
+        t['direction'] = 0
         response = self.client.get(reverse('propose_token', args=[self.t1u1.pseudo, str(t)]))
         self.assertEqual(
             json.loads(response.content.decode('utf8')),
@@ -662,7 +662,7 @@ class ProposeTokenTests(TestCase):
         """Any token with an incorrect checeksum must be rejected"""
         t = FakeEncState(self.basetoken.D)
         t['id'] = self.t1.laumio
-        t['direction'] = 0
+        t['direction'] = 1
         response = self.client.get(reverse('propose_token', args=[self.t1u1.pseudo, str(t)]))
         self.assertEqual(
             json.loads(response.content.decode('utf8')),
@@ -682,13 +682,13 @@ class ProposeTokenTests(TestCase):
         m = Member.objects.create(pseudo="Idaho", team=t)
 
         t_in = copy.deepcopy(self.basetoken)
-        t_in['direction'] = 0
+        t_in['direction'] = 1
         t_in['riddle'] = 0
         t_in['final_success'] =1
         t_in['id'] = 0x0042
 
         t_out = copy.deepcopy(self.basetoken)
-        t_out['direction'] = 1
+        t_out['direction'] = 0
         t_out['riddle'] = 1
         t_out['final_success'] = 0
         t_out['id'] = 0x0042
@@ -717,13 +717,13 @@ class ProposeTokenTests(TestCase):
         # forge an attempt for the first step
         t_in = self.basetoken
         t_in['id'] = self.t1.laumio
-        t_in['direction'] = 0
+        t_in['direction'] = 1
         t_in['final_succes'] = 1
 
         t_out = self.basetoken
         t_out['id'] = self.t1.laumio
         t_out['riddle'] += self.s1.challenge.index
-        t_out['direction'] = 1
+        t_out['direction'] = 0
 
         previous_score = S.completed_riddle(self.s1.index)['score']
         Attempt.objects.create(
@@ -744,7 +744,7 @@ class ProposeTokenTests(TestCase):
         self.t1.save()
 
         proposed_t = copy.deepcopy(t_out)
-        proposed_t['direction'] = 0
+        proposed_t['direction'] = 1
         proposed_t['final_success'] = 0  # <= failed riddle
         proposed_t['faults'] = 5
 
@@ -765,13 +765,13 @@ class ProposeTokenTests(TestCase):
         # forge an attempt for the first step
         t_in = copy.deepcopy(self.basetoken)
         t_in['id'] = self.t1.laumio
-        t_in['direction'] = 0
+        t_in['direction'] = 1
         t_in['final_succes'] = 1
 
         t_out = copy.deepcopy(self.basetoken)
         t_out['id'] = self.t1.laumio
         t_out['riddle'] += self.s0.challenge.index
-        t_out['direction'] = 1
+        t_out['direction'] = 0
 
         previous_score = S.completed_riddle(self.s0.index)['score']
         Attempt.objects.create(
@@ -791,14 +791,14 @@ class ProposeTokenTests(TestCase):
         self.t1.save()
 
         proposed_t = copy.deepcopy(t_out)
-        proposed_t['direction'] = 0
+        proposed_t['direction'] = 1
         proposed_t['final_success'] = 1  # <= ok riddle
         proposed_t['faults'] = 0
 
         response_t = copy.deepcopy(self.basetoken)
         response_t['id'] = self.t1.laumio
         response_t['riddle'] = self.s2.challenge.index
-        response_t['direction'] = 1
+        response_t['direction'] = 0
 
         response = self.client.get(reverse('propose_token', args=[self.t1u1.pseudo, str(proposed_t)]))
         self.assertEqual(
