@@ -44,7 +44,9 @@ for o in u:
         if (a == 0):
             false_value_rand = -1
         false_value = o+false_value_rand
-        stdout.write(" "+str(false_value)+" ")
+        stdout.write(str(false_value)+" ")
+        if argument_test == 1:
+            enigma.write(str(false_value)+" ")
     else:
         stdout.write(str(o)+" ")
     if (argument_test == 1):
@@ -55,6 +57,6 @@ if (argument_test == 1):
 stdout.write("\nIntru: "+str(false_value)+"\n")
 
 if (argument_test == 1):
-    answer.write(str(false_value))
+    answer.write(str(false_value)+"\n")
     answer.close()
     enigma.close()
