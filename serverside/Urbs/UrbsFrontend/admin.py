@@ -1,3 +1,16 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Animation, Challenge, Step, Team, Member, Attempt, MessageType, Message
+
+# class TeamAdmin(admin.ModelAdmin):
+
+
+# admin.site.register(Team, TeamAdmin)
+admin.site.register(Animation)
+admin.site.register(Challenge)
+admin.site.register(Step)
+admin.site.register(Team)
+admin.site.register(Member)
+admin.site.register(Attempt)
+admin.site.register(MessageType)
+admin.site.register(Message)

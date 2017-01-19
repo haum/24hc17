@@ -210,7 +210,7 @@ def propose_token(request, username, token):
             'result': []
         })
 
-    if tokenstate['direction']!=0:
+    if tokenstate['direction']!=1:
         return forge_json_response({
             'status': 'wrong direction',
             'command': 'propose_token',
@@ -315,7 +315,7 @@ def propose_token(request, username, token):
         'animation': team.step.animation.index,
         'sentence': 0,
         'final_success': 0,
-        'direction': 1,
+        'direction': 0,
         'riddle': team.challenge.index,
         'animparams': team.step.animation.params
     })
