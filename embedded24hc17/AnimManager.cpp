@@ -28,6 +28,7 @@
 #include "anim__ProgressiveLockChase.h"
 #include "anim__ScrollUp_Fire.h"
 #include "anim__Gray.h"
+#include "anim__SimonSays.h"
 
 
 namespace {
@@ -154,6 +155,10 @@ void AnimManager::set(int anim) {
 				anim::Gray::init_data(&anim_data, tab, 0, 100, CRGB::Red, CRGB::Orange);
 				play_ptr = &anim::Gray::play;
 			}
+			break;
+		case 57:
+			anim::SimonSays::init_data(&anim_data, "rgbygybrr", 100);
+			play_ptr = &anim::SimonSays::play;
 			break;
 		default:
 			anim::Breathing::init_data(&anim_data);
