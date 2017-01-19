@@ -16,6 +16,14 @@ SerialCommunicator::SerialCommunicator() {
 #endif
 }
 
+uint32_t SerialCommunicator::available() {
+	uint32_t len = -1;
+#ifdef ESP8266
+	len = Serial.available();
+#else
+#endif
+	return len;
+}
 uint32_t SerialCommunicator::read(char * data, uint32_t max) {
 #ifdef ESP8266
 	uint32_t len = 0;

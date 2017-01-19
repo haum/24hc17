@@ -14,6 +14,11 @@ class SerialCommunicator {
 		/** Available formats **/
 		enum IntFormat { FMTDEC, FMTHEX };
 
+		/** Check for readable data
+		  * @return number of readable bytes
+		  */
+		uint32_t available();
+
 		/** Read data
 		  * @param data Buffer
 		  * @param max  Size of buffer
