@@ -74,7 +74,7 @@ bool EncodedState::fromString(char repr[22]) {
 void EncodedState::print(SerialCommunicator & comm) {
 	comm.write("{", 1);
 	comm.write("\n\tid = 0x", 8); comm.write(id(), SerialCommunicator::FMTHEX);
-	comm.write("\n\tdirection = ", 16); comm.write(direction());
+	comm.write("\n\tdirection = ", 14); comm.write(direction());
 	comm.write("\n\triddle = ", 11); comm.write(riddle());
 	comm.write("\n\triddleparams = 0x", 19); comm.write(riddleparams(), SerialCommunicator::FMTHEX);
 	comm.write("\n\tfaults = ", 11); comm.write(faults());
