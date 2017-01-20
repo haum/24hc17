@@ -17,9 +17,8 @@ namespace AveCaesar {
 		char ans[255];
 		int len = info.comm.read(ans, sizeof(ans));
 		if (len == 3 && ans[0] == 'a' && ans[1] == 'v' && ans[2] == 'e') {
-			EncodedState newstate;
+			EncodedState newstate = info.state;
 			newstate.faults() = d->faults;
-			newstate.riddle() = 0;
 			newstate.finalsuccess() = 1;
 			newstate.direction() = 1;
 			newstate.sentence() = random(32);
