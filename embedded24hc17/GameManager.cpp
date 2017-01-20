@@ -7,6 +7,7 @@
 #include "game__Nothing.h"
 #include "game__WhiteRabbit.h"
 #include "game__SimpleOps.h"
+#include "game__DearCowTummy.h"
 
 namespace {
 	union {
@@ -71,11 +72,10 @@ void GameManager::set(int riddle) {
 			game::SimpleFromStorage::init_data(&game_data, "JustHexaEvil");
 			play_ptr = &game::SimpleFromStorage::play;
 			break;
-/*		case 14:
-			game::Difference::init_data(&game_data, "Difference");
-			play_ptr = &game::Difference::play;
-			break;
-		case 15:
+		case 14:
+			game::DearCowTummy::init_data(&game_data);
+			play_ptr = &game::DearCowTummy::play;
+		/*case 15:
 			game::DifferenceUnknown::init_data(&game_data, "DifferenceUnknown");
 			play_ptr = &game::DifferenceUnknown::play;
 			break;
