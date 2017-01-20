@@ -240,14 +240,18 @@ void AnimManager::animate() {
 
 void AnimManager::setSimonSaysParam(char * sequence, int wait) {
 	anim::SimonSays::init_data(&anim_data, sequence, wait);
-}	
+	play_ptr = &anim::SimonSays::play;
+}
 
 void AnimManager::advanceHangmanGallow() {
         anim::Hangman::advance_gallow(&anim_data);
+        play_ptr = &anim::Hangman::play;
+
 }
 
 void AnimManager::initMissingGray(int missingNumbers[16], int size, int wait) {
-	 anim::Gray::init_data(&anim_data, missingNumbers, size, wait, CRGB::Red, CRGB::Orange);
+	anim::Gray::init_data(&anim_data, missingNumbers, size, wait, CRGB::Red, CRGB::Orange);
+	play_ptr = &anim::Gray::play;
 }
 
 
