@@ -103,6 +103,10 @@ void GameManager::set(int riddle) {
 			game::SimpleFromStorage::init_data(&game_data, "RotateAscii");
 			play_ptr = &game::SimpleFromStorage::play;
 			break;
+		case 22:
+			game::SimpleFromStorage::init_data(&game_data, "SudXtrem");
+			play_ptr = &game::SimpleFromStorage::play;
+			break;
 		default:
 			game::Welcome::init_data(&game_data);
 			play_ptr = &game::Welcome::play;
