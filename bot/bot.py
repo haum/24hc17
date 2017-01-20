@@ -2,10 +2,8 @@ import pydle
 import encodedState
 import requests
 import json
-from urllib.parse import urlencode
 
 chan = '#test24'
-#admins = ['seb_vallee', 'matael']
 admins = ['seb_vallee', 'matael', 'jackdesbwa']
 botname = 'Vitellius'
 botpasswd = 'vincentjousse'
@@ -47,17 +45,12 @@ class NeroBot(pydle.Client):
                     self.message(player, "You must speak to me on " + chan)
         else:
             team = self.get_team(player)
-            #if not team:
-                #self.message(source, "I don't know you, Stranger. Answer my questions in private before trying to defeat me!")
-            #else:
             if message.strip().lower().startswith(botname.lower()) and ":" in message:
                 token = message.split(':', 1)[1].strip()
-                # test regex token ?
                 newtoken = self.send_token(player, token)
                 if not newtoken:
                     self.message(chan, "Did you try to fool me, " + player + "?")
                 else:
-                    #print(newtoken)
                     if newtoken == "Habemus victorem":
                         self.message(chan, "We have a winner ! Please applause team " + team + " !")
                     else:
@@ -78,7 +71,6 @@ class NeroBot(pydle.Client):
         return False
 
     def get_team(self, player):
-        #/api/user/Paul
         data = self.get_api(domain + 'user/' + player)
         if data :
             return data['result'][0]['team']['name']
@@ -86,14 +78,12 @@ class NeroBot(pydle.Client):
             return False
 
     def set_team(self, player, team):
-        # /api/team/Atreides/adduser/Leto
         ok = self.get_api(domain + 'team/' + team + '/adduser/' + player)
         if not ok:
             return False
         return True
 
     def send_token(self, player, token):
-        #/api/propose_token/
         data = self.get_api(domain + 'token/' + player + '/' + token)
         if not data:
             return False
@@ -104,16 +94,8 @@ class NeroBot(pydle.Client):
                 return "Habemus victorem"
             else:
                 return data
-        #{'result': {'next': {'next': 'BracesMatch', 'type': 'riddle', 'token': 't9*ojxwpykgZb8QnklGkfD'}}, 'status': 'valid token', 'command': 'propose_token'}
 
 
 client = NeroBot(botname, realname=realname)
 client.connect('irc.freenode.net', 6697, tls=True, tls_verify=False)
 client.handle_forever()
-
-#methode get team ==> null ==> create team
-# for dest in admins:
-#     self.message(dest, "ADMIN : " + player + " has tried the token : " + token)
-# self.ec.from_string(token)
-# for dest in admins:
-#     self.message(dest, "ADMIN : " + player + " got : " + self.ec.print_var())
