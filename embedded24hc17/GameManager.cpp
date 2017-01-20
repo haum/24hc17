@@ -5,6 +5,7 @@
 #include "game__SimpleFromStorage.h"
 #include "game__LostInMaze.h"
 #include "game__Nothing.h"
+#include "game__WhiteRabbit.h"
 
 namespace {
 	union {
@@ -81,6 +82,14 @@ void GameManager::set(int riddle) {
 			game::DifferenceEviler::init_data(&game_data, "DifferenceEviler");
 			play_ptr = &game::DifferenceEviler::play;
 			break;*/
+		case 17:
+			game::WhiteRabbit::init_data(&game_data, 50, "WhiteRabbitEasy");
+			play_ptr = &game::WhiteRabbit::play;
+			break;
+		case 18:
+			game::WhiteRabbit::init_data(&game_data, 257, "WhiteRabbitLinear");
+			play_ptr = &game::WhiteRabbit::play;
+			break;
 		default:
 			game::Welcome::init_data(&game_data);
 			play_ptr = &game::Welcome::play;
