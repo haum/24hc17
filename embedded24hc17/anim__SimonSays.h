@@ -12,6 +12,8 @@ namespace anim {
 			char sequence[15];
 			int led;
 			int color;
+			int pause;
+			bool onPause;
 		};
 	
 		void init_data(void * data, char * sequence, int wait);

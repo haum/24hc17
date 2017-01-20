@@ -9,6 +9,8 @@ namespace anim {
 			d->divider = 0;
 			d->blink = true;
 			d->wait = wait;
+			d->pause = 4 * wait;
+			d->onPause = false;
 			d->i = 0;
 			strncpy(d->sequence, sequence, 14);
 			d->led;
@@ -18,19 +20,38 @@ namespace anim {
 
 		void play(void* p) {
 			auto d = static_cast<Data*>(p);
-			if (d->sequence[d->i] != '\0') {
-				if (d->divider == d->wait/10 && d->blink == true) {
-					d->divider = 0;
-					d->blink = !d->blink;
-					char color = d->sequence[d->i];
-					get_led(p, color);
-					AnimManager::setLed(d->led, d->color);
-				} else if(d->divider ==d->wait/10 && d->blink == false){
-					d->divider =0;
-					d->blink = !d->blink;
-					d->i++;
-					AnimManager::clear();
+			if (not d->onPause) 
+			{
+				if (d->sequence[d->i] != '\0') {
+					if (d->divider == d->wait/10 && d->blink == true) {
+						d->divider = 0;
+						d->blink = !d->blink;
+						char color = d->sequence[d->i];
+						get_led(p, color);
+						AnimManager::setLed(d->led, d->color);
+					} else if(d->divider ==d->wait/10 && d->blink == false){
+						d->divider =0;
+						d->blink = !d->blink;
+						d->i++;
+						AnimManager::clear();
+					} else {
+						d->divider++;
+					}
 				} else {
+					d->onPause = true;
+					d->divider = 0;
+				}
+			}
+			else
+			{
+				if (d->divider == d->pause)
+				{
+					d->onPause = false;
+					d->divider = 0;
+					d->i = 0;
+				}
+				else
+				{
 					d->divider++;
 				}
 			}
