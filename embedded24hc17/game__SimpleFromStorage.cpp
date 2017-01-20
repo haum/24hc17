@@ -83,7 +83,7 @@ namespace SimpleFromStorage {
 		// Write token
 		EncodedState newstate = info.state;
 		newstate.faults() = fault;
-		newstate.finalsuccess() = !faults;
+		newstate.finalsuccess() = !fault;
 		newstate.direction() = 1;
 		newstate.sentence() = random(32);
 		char token[22];
