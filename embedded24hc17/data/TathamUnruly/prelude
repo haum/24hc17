@@ -1,0 +1,16 @@
+Your goal is to completely fill this matrix according to the following rules:
+- no three consecutive number, horizontally or vertically, are the same value
+- each row and column contains the same number of number values.
+
+Exemple of answer:
+
+##########
+#10101010#
+#01010011#
+#11001100#
+#00110011#
+#01001101#
+#10011010#
+#10110100#
+#01100101#
+##########
