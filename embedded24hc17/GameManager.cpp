@@ -11,6 +11,7 @@
 #include "game__SimonSays.h"
 #include "game__MissingShadesOfGray.h"
 
+
 namespace {
 	union {
 		game::Welcome::Data g00;
@@ -77,14 +78,14 @@ void GameManager::set(int riddle) {
 		case 14:
 			game::DearCowTummy::init_data(&game_data);
 			play_ptr = &game::DearCowTummy::play;
-		/*case 15:
-			game::DifferenceUnknown::init_data(&game_data, "DifferenceUnknown");
-			play_ptr = &game::DifferenceUnknown::play;
+		case 15:
+			game::SimpleFromStorage::init_data(&game_data, "Difference");
+			play_ptr = &game::SimpleFromStorage::play;
 			break;
 		case 16:
-			game::DifferenceEviler::init_data(&game_data, "DifferenceEviler");
-			play_ptr = &game::DifferenceEviler::play;
-			break;*/
+			game::SimpleFromStorage::init_data(&game_data, "DifferenceUnknown");
+			play_ptr = &game::SimpleFromStorage::play;
+			break;
 		case 17:
 			game::WhiteRabbit::init_data(&game_data, 50, "WhiteRabbitEasy");
 			play_ptr = &game::WhiteRabbit::play;
