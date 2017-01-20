@@ -112,6 +112,10 @@ void GameManager::set(int riddle) {
 			game::SimonSays::init_data(&game_data);
 			play_ptr = &game::SimonSays::play;
 			break;
+		case 24:
+			game::MissingShadesOfGray::init_data(&game_data);
+			play_ptr = &game::MissingShadesOfGray::play;
+			break;
 		default:
 			game::Welcome::init_data(&game_data);
 			play_ptr = &game::Welcome::play;
