@@ -76,7 +76,7 @@ namespace anim
 
 		int get_Gray_index(int number)
 		{
-			for(int i=0; i<16, i++) {
+			for(int i=0; i<16; i++) {
 				if (Grays[i] == number) {
 					return i;
 				}
