@@ -252,6 +252,7 @@ def propose_token(request, username, token):
     previous_attempts = Attempt.objects.filter(team=team).order_by('-timestamp')
     if previous_attempts.count()!=0:
         previous_token = EncodedState().from_string(previous_attempts[0].token_out)
+        previous_token_in = previous_attempts[0].token_in
 
         fields = ['riddle', 'id', 'riddleparams', 'animation', 'animparams']
         modified_fields = [f for f in fields if previous_token.D.get(f)!=tokenstate.D.get(f)]
@@ -263,6 +264,13 @@ def propose_token(request, username, token):
                     'modified_fields': modified_fields,
                 }
             }, 403)
+        if token==str(previous_token_in):
+            return forge_json_response({
+                'status': 'token seen',
+                'command': 'propose_token',
+                'result': []
+            }, 403)
+
     else: # Guard, you never know
         team.step = Step.objects.get(index=0)
         team.challenge = team.step.challenge
