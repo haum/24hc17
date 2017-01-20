@@ -1,5 +1,7 @@
 #include "AnimManager.h"
 
+#ifndef ANIM__GRAY_H
+#define ANIM__GRAY_H
 
 namespace anim
 {
@@ -23,9 +25,10 @@ namespace anim
 
 		void play_one_number(void* p, int number);
 
+		int get_Gray_index(int number);
+
 	}
 
 }
 
-
-
+#endif
