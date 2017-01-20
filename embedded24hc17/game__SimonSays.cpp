@@ -50,12 +50,6 @@ namespace SimonSays {
 			faults = 1;
 		}
 		
-
-		Serial.print(sequence);
-		Serial.print(ans_line);
-		Serial.print(ans_line_len);
-		Serial.print(faults);
-		
 		//Write Token
 		EncodedState newstate = info.state;
 		newstate.faults() = (faults != 0);
