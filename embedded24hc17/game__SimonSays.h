@@ -4,7 +4,7 @@ namespace game {
 	namespace SimonSays {
 		struct Data { 
 		};
-		void init_data(void * data, char * sequence, int wait);
+		void init_data(void * data);
 		bool play(void *, GameManager::GameInfo & info);
 	}
 }
