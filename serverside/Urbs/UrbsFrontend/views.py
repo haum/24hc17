@@ -202,20 +202,20 @@ def propose_token(request, username, token):
                 'status': 'invalid token',
                 'command': 'propose_token',
                 'result': [token]
-            })
+            }, 403)
     except ChecksumError:
         return forge_json_response({
             'status': 'incorrect checksum',
             'command': 'propose_token',
             'result': []
-        })
+        }, 403)
 
     if tokenstate['direction']!=1:
         return forge_json_response({
             'status': 'wrong direction',
             'command': 'propose_token',
             'result': []
-        })
+        }, 404)
 
 
     submitter = Member.objects.get(pseudo=username)
@@ -238,7 +238,7 @@ def propose_token(request, username, token):
                         'submitter_team': team.name,
                         'token_team': None
                     }
-                })
+                }, 404)
             return forge_json_response({
                 'status': 'submitter not part of team',
                 'command': 'propose_token',
@@ -246,7 +246,7 @@ def propose_token(request, username, token):
                     'submitter_team': team.name,
                     'token_team': token_team.name
                 }
-            })
+            }, 403)
 
 
     previous_attempts = Attempt.objects.filter(team=team).order_by('-timestamp')
@@ -262,7 +262,7 @@ def propose_token(request, username, token):
                 'result': {
                     'modified_fields': modified_fields,
                 }
-            })
+            }, 403)
     else: # Guard, you never know
         team.step = Step.objects.get(index=0)
         team.challenge = team.step.challenge
