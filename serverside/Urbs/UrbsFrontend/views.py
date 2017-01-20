@@ -49,9 +49,11 @@ def get_all_users(request):
     }
     if len(users)==0:
         payload['status'] = 'no user found'
+        code = 404
     else:
         payload['status'] = 'users found'
-    return forge_json_response(payload)
+        code = 200
+    return forge_json_response(payload, code=code)
 
 
 def register_user(request, teamname, username):
@@ -202,20 +204,20 @@ def propose_token(request, username, token):
                 'status': 'invalid token',
                 'command': 'propose_token',
                 'result': [token]
-            })
+            }, 403)
     except ChecksumError:
         return forge_json_response({
             'status': 'incorrect checksum',
             'command': 'propose_token',
             'result': []
-        })
+        }, 403)
 
     if tokenstate['direction']!=1:
         return forge_json_response({
             'status': 'wrong direction',
             'command': 'propose_token',
             'result': []
-        })
+        }, 404)
 
 
     submitter = Member.objects.get(pseudo=username)
@@ -238,7 +240,7 @@ def propose_token(request, username, token):
                         'submitter_team': team.name,
                         'token_team': None
                     }
-                })
+                }, 404)
             return forge_json_response({
                 'status': 'submitter not part of team',
                 'command': 'propose_token',
@@ -246,12 +248,13 @@ def propose_token(request, username, token):
                     'submitter_team': team.name,
                     'token_team': token_team.name
                 }
-            })
+            }, 403)
 
 
     previous_attempts = Attempt.objects.filter(team=team).order_by('-timestamp')
     if previous_attempts.count()!=0:
         previous_token = EncodedState().from_string(previous_attempts[0].token_out)
+        previous_token_in = previous_attempts[0].token_in
 
         fields = ['riddle', 'id', 'riddleparams', 'animation', 'animparams']
         modified_fields = [f for f in fields if previous_token.D.get(f)!=tokenstate.D.get(f)]
@@ -262,7 +265,14 @@ def propose_token(request, username, token):
                 'result': {
                     'modified_fields': modified_fields,
                 }
-            })
+            }, 403)
+        if token==str(previous_token_in):
+            return forge_json_response({
+                'status': 'token seen',
+                'command': 'propose_token',
+                'result': []
+            }, 403)
+
     else: # Guard, you never know
         team.step = Step.objects.get(index=0)
         team.challenge = team.step.challenge
