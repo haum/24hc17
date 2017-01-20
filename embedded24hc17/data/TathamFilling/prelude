@@ -1,0 +1,6 @@
+Write a number in every blank. When the area is full, every orthogonally
+connected group of identical numbers should have an area equal to that number:
+so 1s always appear alone, 2s in pairs, and so on. 
+
+Expected result: valid full area with borders included
+

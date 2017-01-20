@@ -95,6 +95,10 @@ void GameManager::set(int riddle) {
 			game::SimpleOps::init_data(&game_data);
 			play_ptr = &game::SimpleOps::play;
 			break;
+		case 20:
+			game::SimpleFromStorage::init_data(&game_data, "TathamFilling");
+			play_ptr = &game::SimpleFromStorage::play;
+			break;
 		default:
 			game::Welcome::init_data(&game_data);
 			play_ptr = &game::Welcome::play;
