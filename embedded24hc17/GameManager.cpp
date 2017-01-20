@@ -8,6 +8,7 @@
 #include "game__WhiteRabbit.h"
 #include "game__SimpleOps.h"
 #include "game__DearCowTummy.h"
+#include "game__SimonSays.h"
 
 namespace {
 	union {
@@ -106,6 +107,10 @@ void GameManager::set(int riddle) {
 		case 22:
 			game::SimpleFromStorage::init_data(&game_data, "SudXtrem");
 			play_ptr = &game::SimpleFromStorage::play;
+			break;
+		case 23:
+			game::SimonSays::init_data(&game_data);
+			play_ptr = &game::SimonSays::play;
 			break;
 		default:
 			game::Welcome::init_data(&game_data);
