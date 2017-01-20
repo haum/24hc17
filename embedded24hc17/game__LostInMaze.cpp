@@ -140,7 +140,7 @@ namespace LostInMaze {
 		// Write token
 		EncodedState newstate = info.state;
 		newstate.faults() = fault;
-		newstate.finalsuccess() = 1;
+		newstate.finalsuccess() = !faults;
 		newstate.direction() = 1;
 		newstate.sentence() = random(32);
 		char token[22];

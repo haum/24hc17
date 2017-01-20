@@ -9,6 +9,7 @@ namespace Welcome {
 		info.comm.dump_file("/Welcome/message");
 
 		EncodedState newstate = info.state;
+		newstate.riddle() = 0;
 		newstate.faults() = 0;
 		newstate.finalsuccess() = 1;
 		newstate.direction() = 1;
