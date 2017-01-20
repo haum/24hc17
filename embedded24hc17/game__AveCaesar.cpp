@@ -25,7 +25,8 @@ namespace AveCaesar {
 			newstate.sentence() = random(32);
 			char token[22];
 			newstate.toString(token);
-			info.comm.write("\nAve! Here is the next message to Nero:\n", 40);
+			info.comm.write("\nAve! Here is the next message...\n", 34);
+			info.comm.write("\nVitellius: ", 12);
 			info.comm.write(token, sizeof(token));
 			info.comm.write("\n", 1);
 			return true;

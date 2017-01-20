@@ -63,7 +63,7 @@ namespace DearCowTummy {
 		newstate.sentence() = random(32);
 		char token[22];
 		newstate.toString(token);
-		info.comm.write("\nToken: ", 8);
+		info.comm.write("\nVitellius: ", 12);
 		info.comm.write(token, sizeof(token));
 		info.comm.write("\n", 1);
 		return true;

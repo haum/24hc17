@@ -34,7 +34,7 @@ void loop() {
 	if (!GameManager::play(info))
 		return;
 
-	comm.write("\nToken: ", 8);
+	comm.write("\nVitellius' answer: ", 20);
 	char token[22];
 	int len = comm.read(token, sizeof(token));
 
