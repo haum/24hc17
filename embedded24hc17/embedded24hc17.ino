@@ -48,6 +48,6 @@ void loop() {
 		GameManager::set(state.riddle());
 		AnimManager::set(state.animation());
 	} else {
-		comm.write("Unknown token\n", 14);
+		comm.write("I don't understand his answer, it's total gibberish !\n\n", 55);
 	}
 }
