@@ -18,6 +18,7 @@ int main(int argc, char **argv) {
 	state.print(comm);
 	state.riddle() = state.riddle() + inc;
 	char token[22];
+	state.direction() = 0;
 	state.toString(token);
 	comm.write(token, sizeof(token));
 	comm.write("\n", 1);
