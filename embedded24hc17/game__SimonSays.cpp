@@ -11,8 +11,29 @@ namespace SimonSays {
 
 	bool play(void * data, GameManager::GameInfo & info) {
 		Data * d = static_cast <Data*> (data);
-		char sequence[8] = "rgbbgry";
-		char ans_line[18];
+		
+		const constexpr int n = 8;
+
+		char sequence[n];
+
+		for (int i = 0; i<n-1; i++) {
+			switch(random(4)) {
+				case 0:
+					sequence[i] = 'r';
+					break;
+				case 1:
+					sequence[i] = 'g';
+					break;
+				case 2:
+					sequence[i] = 'b';
+					break;
+				default:
+					sequence[i] = 'y';
+			}
+		}
+		sequence[n-1] = '\0';
+
+		char ans_line[2 * n];
 		int ans_line_len;
 
 		int faults = 0;
@@ -22,8 +43,18 @@ namespace SimonSays {
 		AnimManager::setSimonSaysParam(sequence, 200);
 		
 		ans_line_len = info.comm.read(ans_line, sizeof(ans_line)-1);
+
+		if (ans_line_len == n-1) {
+			faults = strncmp (sequence, ans_line, n-1);
+		} else {
+			faults = 1;
+		}
 		
-		faults = strcmp (sequence, ans_line);
+
+		Serial.print(sequence);
+		Serial.print(ans_line);
+		Serial.print(ans_line_len);
+		Serial.print(faults);
 		
 		//Write Token
 		EncodedState newstate = info.state;
