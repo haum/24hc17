@@ -157,7 +157,19 @@ void AnimManager::set(int anim) {
 			}
 			break;
 		case 57:
-			anim::SimonSays::init_data(&anim_data, "rgbygybrr", 100);
+			anim::SimonSays::init_data(&anim_data, "grgyg", 200);
+			play_ptr = &anim::SimonSays::play;
+			break;
+		case 58:
+			anim::SimonSays::init_data(&anim_data, "brgrb", 200);
+			play_ptr = &anim::SimonSays::play;
+			break;
+		case 59:
+			anim::SimonSays::init_data(&anim_data, "brbrbrgy", 200);
+			play_ptr = &anim::SimonSays::play;
+			break;
+		case 60:
+			anim::SimonSays::init_data(&anim_data, "grbrby", 200);
 			play_ptr = &anim::SimonSays::play;
 			break;
 		default:
