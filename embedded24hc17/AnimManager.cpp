@@ -157,11 +157,11 @@ void AnimManager::set(int anim) {
 			}
 			break;
 		case 57:
-			anim::SimonSays::init_data(&anim_data, "grgyg", 200);
+			anim::SimonSays::init_data(&anim_data, "grgygb", 200);
 			play_ptr = &anim::SimonSays::play;
 			break;
 		case 58:
-			anim::SimonSays::init_data(&anim_data, "brgrb", 200);
+			anim::SimonSays::init_data(&anim_data, "brgrby", 200);
 			play_ptr = &anim::SimonSays::play;
 			break;
 		case 59:
