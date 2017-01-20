@@ -224,3 +224,18 @@ void AnimManager::animate() {
 		FastLED.show();
 	}
 }
+
+
+void AnimManager::setSimonSaysParam(char * sequence, int wait) {
+	anim::SimonSays::init_data(&anim_data, sequence, wait);
+}	
+
+void AnimManager::advanceHangmanGallow() {
+        anim::Hangman::advance_gallow(&anim_data);
+}
+
+void AnimManager::initMissingGray(int missingNumbers[16], int size, int wait) {
+	 anim::Gray::init_data(&anim_data, missingNumbers, size, wait, CRGB::Red, CRGB::Orange);
+}
+
+

@@ -40,7 +40,13 @@ class AnimManager {
 		
 		/** Set scalp color **/
 		static void setBottomRing(CRGB color);
-		
+
+		/** Set Anim parameters **/
+		static void setSimonSaysParam(char * sequence, int wait);	
+		static void advanceHangmanGallow();
+		static void initMissingGray(int missingNumbers[16], int size, int wait);
+
+
 	private:
 		/** Data pin for neopixel **/
 		static const constexpr int neopixel_datapin = D3;
