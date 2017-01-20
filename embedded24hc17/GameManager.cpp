@@ -9,6 +9,7 @@
 #include "game__SimpleOps.h"
 #include "game__DearCowTummy.h"
 #include "game__SimonSays.h"
+#include "game__MissingShadesOfGray.h"
 
 namespace {
 	union {
