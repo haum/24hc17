@@ -49,9 +49,11 @@ def get_all_users(request):
     }
     if len(users)==0:
         payload['status'] = 'no user found'
+        code = 404
     else:
         payload['status'] = 'users found'
-    return forge_json_response(payload)
+        code = 200
+    return forge_json_response(payload, code=code)
 
 
 def register_user(request, teamname, username):
