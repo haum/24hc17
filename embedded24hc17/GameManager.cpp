@@ -11,7 +11,7 @@
 #include "game__SimonSays.h"
 #include "game__MissingShadesOfGray.h"
 #include "game__Pong.h"
-
+#include "game__Trap.h"
 
 namespace {
 	union {
@@ -126,6 +126,10 @@ void GameManager::set(int riddle) {
 		case 26:
 			game::Pong::init_data(&game_data);
 			play_ptr = &game::Pong::play;
+			break;
+		case 27:
+			game::Trap::init_data(&game_data);
+			play_ptr = &game::Trap::play;
 			break;
 		default:
 			game::Welcome::init_data(&game_data);
