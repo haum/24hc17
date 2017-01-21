@@ -30,10 +30,15 @@ class TeamAdmin(admin.ModelAdmin):
     model = Team
     list_display = ['name', 'score', 'laumio', 'step']
 
+class ChallengeAdmin(admin.ModelAdmin):
+
+    model = Challenge
+    list_display = ['index', 'name', 'desccription']
+
 
 # admin.site.register(Team, TeamAdmin)
 admin.site.register(Animation)
-admin.site.register(Challenge)
+admin.site.register(Challenge, ChallengeAdmin)
 admin.site.register(Team, TeamAdmin)
 admin.site.register(Step, StepAdmin)
 admin.site.register(Member, MemberAdmin)
