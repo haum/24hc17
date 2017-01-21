@@ -27,13 +27,7 @@ class MemberAdmin(admin.ModelAdmin):
 class TeamAdmin(admin.ModelAdmin):
 
     model = Team
-    list_display = ['name', 'score', 'laumio', 'step', 'related_stepindex']
-
-    def related_stepindex(self, obj):
-        return obj.step.index
-    related_stepindex.short_description = "Position in tree"
-
-
+    list_display = ['name', 'score', 'laumio', 'step']
 
 
 # admin.site.register(Team, TeamAdmin)
