@@ -131,6 +131,10 @@ void GameManager::set(int riddle) {
 			game::Trap::init_data(&game_data);
 			play_ptr = &game::Trap::play;
 			break;
+		case 28:
+			game::SimonSays::init_data(&game_data, 15, 100);
+			play_ptr = &game::SimonSays::play;
+			break;
 		default:
 			game::Welcome::init_data(&game_data);
 			play_ptr = &game::Welcome::play;

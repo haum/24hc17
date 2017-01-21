@@ -6,17 +6,25 @@
 
 namespace game {
 namespace SimonSays {
-	void init_data(void * data) {
+		
+	const constexpr int n = 16;
+
+	void init_data(void * data, int len, int wait) {
+		Data * d = static_cast <Data*> (data);
+		if(len > 0 and len < n) {
+			d->len = len;
+		} else {
+			d->len = n-1;
+		}
+		d->wait = wait;
 	}
 
 	bool play(void * data, GameManager::GameInfo & info) {
 		Data * d = static_cast <Data*> (data);
-		
-		const constexpr int n = 8;
 
 		char sequence[n];
 
-		for (int i = 0; i<n-1; i++) {
+		for (int i = 0; i<d->len; i++) {
 			switch(random(4)) {
 				case 0:
 					sequence[i] = 'r';
@@ -31,7 +39,7 @@ namespace SimonSays {
 					sequence[i] = 'y';
 			}
 		}
-		sequence[n-1] = '\0';
+		sequence[d->len] = '\0';
 
 		char ans_line[2 * n];
 		int ans_line_len;
@@ -40,12 +48,12 @@ namespace SimonSays {
 
 		info.comm.dump_file("/SimonSays/message");
 		
-		AnimManager::setSimonSaysParam(sequence, 200);
+		AnimManager::setSimonSaysParam(sequence, d->wait);
 		
 		ans_line_len = info.comm.read(ans_line, sizeof(ans_line)-1);
 
-		if (ans_line_len == n-1) {
-			faults = strncmp (sequence, ans_line, n-1);
+		if (ans_line_len == d->len) {
+			faults = strncmp (sequence, ans_line, d->len);
 		} else {
 			faults = 1;
 		}
