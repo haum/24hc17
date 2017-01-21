@@ -283,7 +283,7 @@ def propose_token(request, username, token):
         challenge=team.challenge,
         jail=team.jail,
         team=team,
-        final_sucess=token['final_sucess']
+        final_sucess=token['final_sucess'],
         submitter=submitter,
         token_in=token,
         token_out='',  # so we can save it
