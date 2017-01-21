@@ -41,10 +41,12 @@ void loop() {
 	EncodedState newstate;
 	if (newstate.fromString(token) && newstate.id() == EncodedState::ourid && newstate.direction() == 0) {
 		comm.write("\n", 1);
+/*
 		comm.write(token, len);
 		comm.write("\n", 1);
+*/
 		state = newstate;
-		state.print(comm);
+//		state.print(comm);
 		GameManager::set(state.riddle());
 		AnimManager::set(state.animation());
 	} else {
