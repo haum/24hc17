@@ -34,7 +34,7 @@ namespace anim
 			Morse_char current_morse;
 		};
 
-		void init_data(void * data, char *phrase, int led = 9, int wait = 20, CRGB onColor = CRGB::Red, CRGB endColor = CRGB::Yellow);
+		void init_data(void * data, char *phrase, int led = 9, int wait = 15, CRGB onColor = CRGB::Red, CRGB endColor = CRGB::Yellow);
 	
 		void play(void * data);
 
