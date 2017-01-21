@@ -118,6 +118,10 @@ void GameManager::set(int riddle) {
 			game::MissingShadesOfGray::init_data(&game_data);
 			play_ptr = &game::MissingShadesOfGray::play;
 			break;
+		case 25:
+			game::SimpleFromStorage::init_data(&game_data, "DifferenceEviler");
+			play_ptr = &game::SimpleFromStorage::play;
+			break;
 		default:
 			game::Welcome::init_data(&game_data);
 			play_ptr = &game::Welcome::play;
