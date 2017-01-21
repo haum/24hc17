@@ -235,6 +235,7 @@ void AnimManager::animate() {
 		play();
 		FastLED.show();
 	}
+	yield();
 }
 
 
