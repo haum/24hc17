@@ -10,6 +10,7 @@
 #include "game__DearCowTummy.h"
 #include "game__SimonSays.h"
 #include "game__MissingShadesOfGray.h"
+#include "game__Pong.h"
 
 
 namespace {
@@ -121,6 +122,10 @@ void GameManager::set(int riddle) {
 		case 25:
 			game::SimpleFromStorage::init_data(&game_data, "DifferenceEviler");
 			play_ptr = &game::SimpleFromStorage::play;
+			break;
+		case 26:
+			game::Pong::init_data(&game_data);
+			play_ptr = &game::Pong::play;
 			break;
 		default:
 			game::Welcome::init_data(&game_data);
