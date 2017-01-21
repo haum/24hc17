@@ -12,6 +12,7 @@ class StepAdmin(admin.ModelAdmin):
 class AttemptAdmin(admin.ModelAdmin):
 
     model = Attempt
+    list_display = ['timestamp', 'team', 'step', 'challenge', 'jail', 'success', 'points']
     list_filter = ['team__name', 'submitter__pseudo']
 
 class MemberAdmin(admin.ModelAdmin):
