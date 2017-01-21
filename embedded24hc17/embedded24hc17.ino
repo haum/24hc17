@@ -62,6 +62,11 @@ void loop() {
 */
 		state = newstate;
 //		state.print(comm);
+		if (state.sentence()!=0) {
+			char file[20];
+			snprintf(file, sizeof(file), "/Sentences/s%d", (int)(state.sentence()));
+			comm.dump_file(file);
+		}
 		GameManager::set(state.riddle());
 		AnimManager::set(state.animation());
 	} else {
