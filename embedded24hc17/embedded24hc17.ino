@@ -27,7 +27,22 @@ void setup() {
 	SPIFFS.begin();
 
 	AnimManager::setup();
-      AnimManager::set(51);
+
+	AnimManager::set(42);
+	long start_millis = millis();
+	char * code = "Je suis un hacker !";
+	while (millis()-start_millis < 10*60*1000) {
+		char c = random(0,255);
+		comm.write(&c, 1);
+		if (comm.available()) {
+			char ans;
+			Serial.readBytes(&ans, 1);
+			if (*code == ans) code++;
+			if (*code == 0) break;
+		}
+		AnimManager::animate();
+	}
+	AnimManager::set(3);
 }
 
 void loop() {
