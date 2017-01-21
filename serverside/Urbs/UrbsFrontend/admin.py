@@ -33,7 +33,7 @@ class TeamAdmin(admin.ModelAdmin):
 class ChallengeAdmin(admin.ModelAdmin):
 
     model = Challenge
-    list_display = ['index', 'name', 'desccription']
+    list_display = ['index', 'name', 'description']
 
 
 # admin.site.register(Team, TeamAdmin)
