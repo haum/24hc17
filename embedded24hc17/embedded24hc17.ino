@@ -1,4 +1,4 @@
-#include "SerialCommunicator.h"
+ #include "SerialCommunicator.h"
 #include "EncodedState.h"
 #include "GameManager.h"
 #include "AnimManager.h"
