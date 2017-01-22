@@ -44,6 +44,7 @@ void GameManager::set(int riddle) {
 		case 5:
 			game::SimpleFromStorage::init_data(&game_data, "RomanProblems");
 			play_ptr = &game::SimpleFromStorage::play;
+			break;
 		case 6:
 			game::LostInMaze::init_data(&game_data);
 			play_ptr = &game::LostInMaze::play;
@@ -79,6 +80,7 @@ void GameManager::set(int riddle) {
 		case 14:
 			game::DearCowTummy::init_data(&game_data);
 			play_ptr = &game::DearCowTummy::play;
+			break;
 		case 15:
 			game::SimpleFromStorage::init_data(&game_data, "Difference");
 			play_ptr = &game::SimpleFromStorage::play;
