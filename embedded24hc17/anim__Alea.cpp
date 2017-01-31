@@ -24,7 +24,7 @@ namespace anim
 			if (d->divider == wait/10)
 			{
 				d->divider = 0;
-				led_roll = random(0,12);
+				led_roll = random(0,13);
 
 				AnimManager::setLed(d->led, CRGB::Black);
 				d->led = led_roll;

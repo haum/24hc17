@@ -28,7 +28,7 @@ namespace anim
 				d->divider = 0;
 				for(int i = 0; i<d->loopSteps; i++)
 				{
-					AnimManager::setLed(random(0,12), CRGB::White);
+					AnimManager::setLed(random(0,13), CRGB::White);
 				}				
 			}
 			else

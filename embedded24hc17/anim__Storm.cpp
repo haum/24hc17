@@ -25,7 +25,7 @@ namespace anim
 			}
 			else
 			{
-				d->maxPause = maxPause;
+				d->maxPause = maxPause + 1;
 			}
 			d->pause = wait;
 			d->onPause = false;
@@ -45,7 +45,7 @@ namespace anim
 					AnimManager::setAllLeds(d->backColor);
 					for(int i = 0; i<d->loopSteps; i++)
 					{
-						d->leds[i] = random(0,12);
+						d->leds[i] = random(0,13);
 					}
 					d->step++;
 				}

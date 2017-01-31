@@ -24,7 +24,7 @@ namespace anim
 				d->divider = 0;
 				d->blink = !d->blink;
 				AnimManager::setLed(9, d->blink ? CRGB::Red : CRGB::Black);
-				d->wait = random(1,100);
+				d->wait = random(1,101);
 			}
 			else
 			{

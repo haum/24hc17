@@ -46,14 +46,14 @@ namespace anim
 				d->divider = 0;
 				for(int i = 0; i<d->loopSteps; i++)
 				{
-					bool blink = random(0, 2);
+					bool blink = random(0, 3);
 					if (blink)
 					{
-						AnimManager::setLed(random(0,12), colors[random(0, 12)]);
+						AnimManager::setLed(random(0,13), colors[random(0, 13)]);
 					}
 					else
 					{
-						AnimManager::setLed(random(0,12), CRGB::Black);
+						AnimManager::setLed(random(0,13), CRGB::Black);
 					}
 				}				
 			}
